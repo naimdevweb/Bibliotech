@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Bibliothèque - Règles Métier</title>
+    <style>
+        @page {
+            margin: 2cm;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 4px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #2980b9;
+            background: #ecf0f1;
+            padding: 12px 15px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            border-left: 5px solid #3498db;
+            font-size: 20px;
+        }
+
+        h3 {
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .role-section {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .role-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .example {
+            background: #e8f5e9;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #4caf50;
+            border-radius: 4px;
+        }
+
+        .constraint {
+            background: #fff3cd;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+
+        .constraint strong {
+            color: #856404;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .meta-info {
+            text-align: center;
+            color: #95a5a6;
+            font-size: 12px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PROJET – GESTION DE BIBLIOTHÈQUE MUNICIPALE</h1>
+        <div class="subtitle">Règles métier – User Stories – Structure BDD – Exemple complet avec Avis & Favoris</div>
+
+        <h2>DOCUMENT 1 – RÔLES & RÈGLES MÉTIER</h2>
+
+        <div class="role-section">
+            <div class="role-title">1️⃣ Lecteur (ex : Yanis)</div>
+
+            <strong>Après connexion :</strong>
+            <ul>
+                <li>Accès au catalogue complet : recherche par titre, auteur, catégorie, filtre par disponibilité.</li>
+                <li>Voir l'état de chaque livre :
+                    <ul>
+                        <li>📗 <strong>Disponible</strong> → peut emprunter</li>
+                        <li>📕 <strong>Emprunté</strong> → peut réserver</li>
+                        <li>🔒 <strong>Réservé</strong> → bloqué pour un autre lecteur</li>
+                    </ul>
+                </li>
+                <li>Accès à ses emprunts en cours avec dates de retour.</li>
+                <li>Accès à son historique d'emprunts et réservations.</li>
+            </ul>
+
+            <strong>Actions possibles :</strong>
+            <ul>
+                <li><strong>Emprunter un livre disponible</strong><br>
+                    <em>Exemple : Livre A disponible → Yanis clique "Emprunter" → livre emprunté 21 jours → date de retour automatique.</em>
+                </li>
+                <li><strong>Réserver un livre déjà emprunté</strong><br>
+                    <em>Exemple : Livre B emprunté par Lucas → Yanis réserve → réservation activée → livre bloqué 7 jours dès son retour → si Yanis ne vient pas → réservation annulée.</em>
+                </li>
+                <li>Laisser un avis (note + commentaire)</li>
+                <li>Ajouter un livre en favori</li>
+            </ul>
+
+            <div class="constraint">
+                <strong>⚠️ CONTRAINTES IMPORTANTES :</strong>
+                <ul>
+                    <li>Maximum <strong>5 emprunts simultanés</strong></li>
+                    <li>Durée de prêt : <strong>21 jours</strong></li>
+                    <li>Prolongation possible : <strong>1 fois, 7 jours supplémentaires</strong> (si pas de réservation en attente)</li>
+                    <li>Maximum <strong>3 réservations actives</strong></li>
+                    <li>Blocage du compte si retard > <strong>14 jours</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="role-section">
+            <div class="role-title">2️⃣ Bibliothécaire (ex : Sarah)</div>
+
+            <strong>Après connexion :</strong>
+            <ul>
+                <li>Accès au catalogue complet, tous les livres.</li>
+                <li>Accès à la liste de tous les lecteurs et leurs emprunts/réservations.</li>
+                <li>Accès aux emprunts en cours et retards.</li>
+            </ul>
+
+            <strong>Actions possibles :</strong>
+            <ul>
+                <li><strong>Créer un emprunt pour un lecteur physique</strong><br>
+                    <em>Exemple : Lucas vient au comptoir pour Livre C → Sarah choisit Lucas et Livre C → emprunt enregistré 21 jours.</em>
+                </li>
+                <li><strong>Enregistrer un retour</strong><br>
+                    <em>Exemple : Lucas rend Livre C → système met à jour : disponible ou réservé pour un autre lecteur (7 jours).</em>
+                </li>
+                <li>Gérer le catalogue : ajouter, modifier, supprimer un livre.</li>
+                <li>Gérer les lecteurs : créer, modifier ou bloquer un compte.</li>
+                <li>Supprimer des avis inappropriés.</li>
+            </ul>
+        </div>
+
+        <div class="role-section">
+            <div class="role-title">3️⃣ Responsable municipal (ex : Mme Dupont)</div>
+
+            <strong>Accès au tableau de bord :</strong>
+            <ul>
+                <li>Nombre d'inscrits</li>
+                <li>Nombre de livres empruntés</li>
+                <li>Top livres</li>
+                <li>Retards</li>
+            </ul>
+            <p><em>Ne peut pas emprunter ni modifier le catalogue.</em></p>
+        </div>
+
+        <h2>DOCUMENT 2 – USER STORIES</h2>
+
+        <h3>📖 Lecteur (Yanis)</h3>
+        <ul>
+            <li>Consulter le catalogue et voir l'état des livres.</li>
+            <li>Chercher un livre par titre, auteur ou catégorie.</li>
+            <li>Emprunter un livre disponible → date retour 21 jours.</li>
+            <li>Réserver un livre déjà emprunté → bloqué 7 jours après retour.</li>
+            <li>Consulter mes emprunts et réservations en cours et l'historique.</li>
+            <li>Laisser un avis (note + commentaire).</li>
+            <li>Ajouter un livre en favori.</li>
+            <li><strong>Prolonger un emprunt (si éligible)</strong> : ajouter 7 jours si le livre n'est pas réservé par quelqu'un d'autre ET si pas déjà prolongé avant.</li>
+        </ul>
+
+        <h3>👩‍💼 Bibliothécaire (Sarah)</h3>
+        <ul>
+            <li>Créer un emprunt pour un lecteur → choisir le lecteur et le livre.</li>
+            <li>Enregistrer un retour → mettre à jour le statut du livre.</li>
+            <li>Gérer le catalogue (ajout, suppression, modification).</li>
+            <li>Gérer les lecteurs (création, modification, blocage).</li>
+            <li>Supprimer des avis inappropriés.</li>
+            <li>Consulter les retards et envoyer des rappels.</li>
+        </ul>
+
+        <h3>👨‍💼 Responsable (Mme Dupont)</h3>
+        <ul>
+            <li>Consulter les statistiques : nombre d'inscrits, livres empruntés, réservations, retards.</li>
+            <li>Exporter les données (CSV, PDF).</li>
+        </ul>
+
+        <h2>DOCUMENT 3 – STRUCTURE DE LA BDD ET RELATIONS</h2>
+
+        <h3>TABLE UTILISATEURS (users)</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Statut</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Yanis</td>
+                <td>yanis@mail.com</td>
+                <td>Lecteur</td>
+                <td>Actif</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Lucas</td>
+                <td>lucas@mail.com</td>
+                <td>Lecteur</td>
+                <td>Actif</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Sarah</td>
+                <td>sarah@mail.com</td>
+                <td>Bibliothécaire</td>
+                <td>Actif</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Dupont</td>
+                <td>dupont@mail.com</td>
+                <td>Responsable</td>
+                <td>Actif</td>
+            </tr>
+        </table>
+        <p><strong>Statuts possibles :</strong> En attente, Actif, Suspendu, Bloqué</p>
+
+        <h3>TABLE LIVRES (books)</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>ISBN</th>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Catégorie</th>
+                <th>Qté totale</th>
+                <th>Qté dispo</th>
+                <th>État</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>9781234567890</td>
+                <td>Livre A</td>
+                <td>J.K. Rowling</td>
+                <td>Fantasy</td>
+                <td>3</td>
+                <td>2</td>
+                <td>Disponible</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>9781234567891</td>
+                <td>Livre B</td>
+                <td>Tolkien</td>
+                <td>Fantasy</td>
+                <td>2</td>
+                <td>0</td>
+                <td>Emprunté</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>9781234567892</td>
+                <td>Livre C</td>
+                <td>Verne</td>
+                <td>Science</td>
+                <td>1</td>
+                <td>0</td>
+                <td>Réservé</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>9781234567893</td>
+                <td>Livre D</td>
+                <td>Orwell</td>
+                <td>Roman</td>
+                <td>2</td>
+                <td>2</td>
+                <td>Disponible</td>
+            </tr>
+        </table>
+        <p><strong>Note :</strong> Un livre peut avoir plusieurs exemplaires. La quantité disponible diminue à chaque emprunt.</p>
+
+        <h3>TABLE EMPRUNTS (loans)</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Utilisateur</th>
+                <th>Livre</th>
+                <th>Date début</th>
+                <th>Date retour</th>
+                <th>Prolongé</th>
+                <th>État</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Yanis</td>
+                <td>Livre A</td>
+                <td>09/12/25</td>
+                <td>30/12/25</td>
+                <td>Non</td>
+                <td>En cours</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Lucas</td>
+                <td>Livre B</td>
+                <td>01/12/25</td>
+                <td>22/12/25</td>
+                <td>Non</td>
+                <td>En cours</td>
+            </tr>
+        </table>
+
+        <h3>TABLE RÉSERVATIONS (reservations)</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Utilisateur</th>
+                <th>Livre</th>
+                <th>Date réservation</th>
+                <th>Position</th>
+                <th>Date limite retrait</th>
+                <th>État</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Yanis</td>
+                <td>Livre B</td>
+                <td>05/12/25</td>
+                <td>1</td>
+                <td>12/12/25</td>
+                <td>Active</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Emma</td>
+                <td>Livre B</td>
+                <td>06/12/25</td>
+                <td>2</td>
+                <td>-</td>
+                <td>En attente</td>
+            </tr>
+        </table>
+
+        <h3>TABLE AVIS (reviews)</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Utilisateur</th>
+                <th>Livre</th>
+                <th>Note</th>
+                <th>Commentaire</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Yanis</td>
+                <td>Livre A</td>
+                <td>⭐⭐⭐⭐⭐ (5/5)</td>
+                <td>Excellent livre</td>
+            </tr>
+        </table>
+
+        <h3>TABLE FAVORIS (favorites)</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Utilisateur</th>
+                <th>Livre</th>
+                <th>Date ajout</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Yanis</td>
+                <td>Livre A</td>
+                <td>09/12/25</td>
+            </tr>
+        </table>
+
+        <h3>TABLE NOTIFICATIONS (notifications)</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Utilisateur</th>
+                <th>Type</th>
+                <th>Message</th>
+                <th>Lu</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Yanis</td>
+                <td>Rappel retour</td>
+                <td>N'oubliez pas de rendre Livre A avant le 30/12/25</td>
+                <td>Non</td>
+            </tr>
+        </table>
+        <p><strong>Types de notifications automatiques :</strong></p>
+        <ul>
+            <li><strong>Rappel retour (J-3)</strong> : 3 jours AVANT la date de retour → "N'oubliez pas de rendre le livre"</li>
+            <li><strong>Retard J+1</strong> : 1 jour APRÈS la date de retour → "Votre livre est en retard"</li>
+            <li><strong>Retard J+7</strong> : 7 jours APRÈS → "Retard urgent" + blocage des nouveaux emprunts</li>
+            <li><strong>Retard J+14</strong> : 14 jours APRÈS → Compte suspendu automatiquement</li>
+            <li><strong>Réservation disponible</strong> : Quand un livre réservé est prêt à retirer (7 jours pour venir)</li>
+            <li><strong>Compte suspendu</strong> : Quand le compte est bloqué suite à un retard important</li>
+        </ul>
+
+        <h2>RELATIONS SIMPLES</h2>
+        <ul>
+            <li><strong>Lecteur → Emprunts :</strong> un lecteur peut emprunter plusieurs livres (max 5).</li>
+            <li><strong>Livre → Emprunts :</strong> un livre peut être emprunté plusieurs fois (selon quantité disponible).</li>
+            <li><strong>Lecteur → Réservations :</strong> un lecteur peut réserver plusieurs livres (max 3).</li>
+            <li><strong>Livre → Réservations :</strong> un livre peut être réservé par plusieurs lecteurs dans l'ordre (file d'attente).</li>
+            <li><strong>Lecteur → Avis :</strong> peut laisser plusieurs avis (1 seul par livre).</li>
+            <li><strong>Lecteur → Favoris :</strong> peut ajouter plusieurs favoris.</li>
+            <li><strong>Bibliothécaire → Emprunts/Retours :</strong> gère tous les emprunts et retours pour les lecteurs physiques.</li>
+            <li><strong>Responsable → Statistiques :</strong> consulte les données, ne modifie rien.</li>
+        </ul>
+
+        <h2>EXEMPLES CONCRETS</h2>
+
+        <div class="example">
+            <strong>1️⃣ Livre B emprunté par Lucas</strong>
+            <p>
+                ➡ Yanis réserve Livre B → réservation activée (position 1)<br>
+                ➡ Lucas rend Livre B → livre bloqué 7 jours pour Yanis<br>
+                ➡ Yanis vient dans les 7 jours → emprunt activé (21 jours)<br>
+                ➡ Yanis laisse un avis ⭐⭐⭐⭐⭐ et ajoute le livre en favori<br>
+                ➡ <em>Si Yanis ne vient pas → réservation annulée après 7 jours, livre disponible pour tous</em>
+            </p>
+        </div>
+
+        <div class="example">
+            <strong>2️⃣ Livre A disponible (2 exemplaires)</strong>
+            <p>
+                ➡ Yanis emprunte directement → date retour 21 jours<br>
+                ➡ Quantité disponible passe de 2 à 1<br>
+                ➡ Livre reste disponible pour d'autres lecteurs<br>
+                ➡ Yanis peut laisser un avis et mettre en favori<br>
+                ➡ Yanis peut prolonger de 7 jours (si pas de réservation)
+            </p>
+        </div>
+
+        <div class="example">
+            <strong>3️⃣ Livre C réservé (bloqué 7 jours pour Emma)</strong>
+            <p>
+                ➡ Aucun autre lecteur ne peut réserver ni emprunter<br>
+                ➡ Emma doit venir avant le 13/12/25<br>
+                ➡ Si Emma ne vient pas → réservation expire → livre disponible
+            </p>
+        </div>
+
+        <div class="constraint">
+            <strong>⚠️ GESTION DES RETARDS :</strong>
+            <ul>
+                <li><strong>J-3 :</strong> Email de rappel automatique</li>
+                <li><strong>J+1 :</strong> Email "Livre en retard"</li>
+                <li><strong>J+7 :</strong> Blocage des emprunts futurs</li>
+                <li><strong>J+14 :</strong> Compte suspendu, contact bibliothécaire obligatoire</li>
+            </ul>
+        </div>
+
+        <div class="meta-info">
+            <strong>Document réalisé dans le cadre du titre professionnel CDA (RNCP 37873)</strong><br>
+            Version 1.1 - 10 décembre 2025
+        </div>
+    </div>
+</body>
+</html>

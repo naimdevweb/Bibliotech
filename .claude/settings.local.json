@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(php --version:*)",
+      "Bash(nul)",
+      "Bash(composer --version:*)",
+      "Bash(node --version:*)",
+      "Bash(npm --version:*)",
+      "Bash(git --version:*)",
+      "Bash(where:*)",
+      "Bash(C:/composer/composer.bat:*)",
+      "Bash(npm create vite:*)",
+      "Bash(rm:*)",
+      "Bash(npm install)",
+      "Bash(mkdir:*)",
+      "Bash(chmod:*)",
+      "Bash(claude mcp list:*)",
+      "Bash(echo:*)",
+      "Bash(claude mcp add --help:*)",
+      "Bash(npx:*)",
+      "Bash(claude mcp add --transport stdio browser-automation -- npx -y @modelcontextprotocol/server-puppeteer)",
+      "mcp__browser-automation__puppeteer_navigate",
+      "Bash(claude mcp remove:*)",
+      "Bash(claude mcp add:*)",
+      "mcp__browsermcp__browser_navigate",
+      "mcp__browsermcp__browser_click",
+      "mcp__browsermcp__browser_snapshot",
+      "mcp__browsermcp__browser_type",
+      "mcp__browsermcp__browser_wait",
+      "mcp__browsermcp__browser_press_key",
+      "WebSearch",
+      "WebFetch(domain:www.francecompetences.fr)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

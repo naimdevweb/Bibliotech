@@ -1,0 +1,44 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+/frontend/node_modules
+/backend/vendor
+
+# Build outputs
+/frontend/dist
+/frontend/build
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Laravel specific
+/backend/storage/*.key
+/backend/.phpunit.result.cache
+/backend/bootstrap/cache/*
+/backend/storage/logs/*
+/backend/storage/framework/cache/*
+/backend/storage/framework/sessions/*
+/backend/storage/framework/views/*
+
+# Testing
+/backend/coverage
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.log
+*.tmp
+nul
