@@ -22,12 +22,23 @@ class CheckRole
      * @param  string  $role
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, string $role)
+    /**
+     * Vérifie que l'utilisateur connecté possède l'un des rôles autorisés
+     *
+     * Exemple : middleware('role:bibliothecaire,admin')
+     * → accepte les utilisateurs avec le rôle 'bibliothecaire' OU 'admin'
+     *
+     * @param  string ...$roles Un ou plusieurs rôles autorisés
+     */
+    public function handle(Request $request, Closure $next, string ...$roles)
     {
-        // TODO: Vérifier que l'utilisateur connecté a le bon rôle
-        // if (! $request->user() || $request->user()->role !== $role) {
-        //     return response()->json(['error' => 'Unauthorized'], 403);
-        // }
+        $user = $request->user();
+
+        if (!$user || !in_array($user->role, $roles)) {
+            return response()->json([
+                'message' => 'Accès refusé. Vous n\'avez pas les droits nécessaires.',
+            ], 403);
+        }
 
         return $next($request);
     }

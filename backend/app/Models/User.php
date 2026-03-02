@@ -57,8 +57,53 @@ class User extends Authenticatable
         ];
     }
 
-    // TODO: Définir les relations
-    // public function loans() { return $this->hasMany(Loan::class); }
-    // public function reservations() { return $this->hasMany(Reservation::class); }
-    // public function notifications() { return $this->hasMany(Notification::class); }
+    // -----------------------------------------------------------------------
+    // Relations Eloquent
+    // -----------------------------------------------------------------------
+
+    /** L'utilisateur peut avoir plusieurs emprunts */
+    public function loans()
+    {
+        return $this->hasMany(Loan::class);
+    }
+
+    /** L'utilisateur peut avoir plusieurs réservations */
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    /** L'utilisateur peut avoir plusieurs notifications */
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    // -----------------------------------------------------------------------
+    // Méthodes utilitaires
+    // -----------------------------------------------------------------------
+
+    /** Retourne les emprunts actuellement en cours */
+    public function activeLoans()
+    {
+        return $this->loans()->whereIn('status', ['en_cours', 'en_retard']);
+    }
+
+    /** Vérifie si l'utilisateur peut emprunter un nouveau livre */
+    public function canBorrow(): bool
+    {
+        // Règle métier : max 5 emprunts simultanés, aucun retard
+        $activeCount = $this->activeLoans()->count();
+        $hasOverdue  = $this->loans()->where('status', 'en_retard')->exists();
+
+        return $activeCount < 5 && !$hasOverdue;
+    }
+
+    /** Génère un numéro d'adhérent unique (format BIB-YYYYXXXX) */
+    public static function generateMembershipNumber(): string
+    {
+        $year   = date('Y');
+        $random = str_pad(random_int(1, 9999), 4, '0', STR_PAD_LEFT);
+        return "BIB-{$year}{$random}";
+    }
 }

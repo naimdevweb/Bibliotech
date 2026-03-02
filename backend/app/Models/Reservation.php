@@ -40,5 +40,19 @@ class Reservation extends Model
         'expiry_date' => 'date',
     ];
 
-    // TODO: Définir les relations
+    // -----------------------------------------------------------------------
+    // Relations Eloquent
+    // -----------------------------------------------------------------------
+
+    /** La réservation appartient à un utilisateur */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /** La réservation appartient à un livre */
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
 }

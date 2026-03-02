@@ -43,7 +43,38 @@ class Book extends Model
         'available_quantity',
     ];
 
-    // TODO: Définir les relations
-    // public function loans() { return $this->hasMany(Loan::class); }
-    // public function reservations() { return $this->hasMany(Reservation::class); }
+    // -----------------------------------------------------------------------
+    // Relations Eloquent
+    // -----------------------------------------------------------------------
+
+    /** Un livre peut avoir plusieurs emprunts */
+    public function loans()
+    {
+        return $this->hasMany(Loan::class);
+    }
+
+    /** Un livre peut avoir plusieurs réservations en file d'attente */
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    // -----------------------------------------------------------------------
+    // Méthodes utilitaires
+    // -----------------------------------------------------------------------
+
+    /** Vérifie si le livre est disponible pour emprunt */
+    public function isAvailable(): bool
+    {
+        return $this->available_quantity > 0;
+    }
+
+    /** Récupère la prochaine réservation en attente (FIFO) */
+    public function nextReservation()
+    {
+        return $this->reservations()
+            ->where('status', 'en_attente')
+            ->orderBy('queue_position')
+            ->first();
+    }
 }

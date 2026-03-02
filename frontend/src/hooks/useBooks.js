@@ -1,16 +1,82 @@
 /**
- * Hook useBooks - Gestion des livres
+ * Hook useBooks - Gestion de l'état des livres dans les composants
  *
- * Fournit :
- * - books : liste des livres
- * - isLoading : booléen
- * - error : erreur éventuelle
- * - fetchBooks(filters) : fonction pour récupérer les livres
- * - searchBooks(query) : fonction de recherche
+ * Encapsule la logique de chargement + gestion des états (loading/error).
  *
- * Utilise bookService
+ * Exemple d'utilisation :
+ * const { books, pagination, isLoading, error, fetchBooks, searchBooks } = useBooks();
  */
 
+import { useState, useCallback } from 'react';
+import { bookService } from '../services/api/bookService';
+
 export function useBooks() {
-  // TODO: Implémenter avec useState, useEffect, bookService
+  const [books, setBooks]           = useState([]);
+  const [pagination, setPagination] = useState(null); // Données de pagination Laravel
+  const [isLoading, setIsLoading]   = useState(false);
+  const [error, setError]           = useState(null);
+
+  /**
+   * Récupère les livres avec filtres et pagination
+   *
+   * @param {number} page    - Numéro de page
+   * @param {Object} filters - Filtres optionnels
+   */
+  const fetchBooks = useCallback(async (page = 1, filters = {}) => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const data = await bookService.getAllBooks(page, 20, filters);
+
+      // La réponse Laravel paginée contient : data, current_page, last_page, total...
+      setBooks(data.data);
+      setPagination({
+        currentPage : data.current_page,
+        lastPage    : data.last_page,
+        total       : data.total,
+        perPage     : data.per_page,
+      });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  /**
+   * Recherche des livres par mot-clé
+   *
+   * @param {string} query - Terme de recherche
+   */
+  const searchBooks = useCallback(async (query) => {
+    if (query.length < 2) return;
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const data = await bookService.searchBooks(query);
+      setBooks(data.data);
+      setPagination({
+        currentPage : data.current_page,
+        lastPage    : data.last_page,
+        total       : data.total,
+        perPage     : data.per_page,
+      });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  return {
+    books,
+    pagination,
+    isLoading,
+    error,
+    fetchBooks,
+    searchBooks,
+  };
 }

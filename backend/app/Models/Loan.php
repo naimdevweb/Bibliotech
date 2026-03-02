@@ -43,7 +43,39 @@ class Loan extends Model
         'return_date' => 'date',
     ];
 
-    // TODO: Définir les relations
-    // public function user() { return $this->belongsTo(User::class); }
-    // public function book() { return $this->belongsTo(Book::class); }
+    // -----------------------------------------------------------------------
+    // Relations Eloquent
+    // -----------------------------------------------------------------------
+
+    /** L'emprunt appartient à un utilisateur */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /** L'emprunt appartient à un livre */
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
+
+    // -----------------------------------------------------------------------
+    // Méthodes utilitaires
+    // -----------------------------------------------------------------------
+
+    /** Calcule le nombre de jours de retard (0 si pas en retard) */
+    public function daysLate(): int
+    {
+        if ($this->status !== 'en_retard') {
+            return 0;
+        }
+
+        return max(0, now()->diffInDays($this->due_date, false) * -1);
+    }
+
+    /** Vérifie si l'emprunt peut encore être prolongé (max 3 fois) */
+    public function canExtend(): bool
+    {
+        return $this->extension_count < 3 && $this->status === 'en_cours';
+    }
 }

@@ -1,17 +1,24 @@
 /**
- * Hook useAuth - Gestion de l'authentification
+ * Hook useAuth - Accès au contexte d'authentification
  *
- * Fournit :
- * - user : utilisateur connecté (ou null)
- * - isAuthenticated : booléen
- * - isLoading : booléen pendant la vérification
- * - login(email, password) : fonction de connexion
- * - logout() : fonction de déconnexion
- * - register(userData) : fonction d'inscription
+ * Raccourci pour utiliser l'AuthContext dans n'importe quel composant.
  *
- * Utilise le AuthContext
+ * Exemple d'utilisation :
+ * const { user, isAuthenticated, login, logout } = useAuth();
+ *
+ * @returns {Object} { user, isAuthenticated, isLoading, login, logout, register }
+ * @throws {Error} Si utilisé en dehors d'un AuthProvider
  */
 
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
+
 export function useAuth() {
-  // TODO: Implémenter avec useContext(AuthContext)
+  const context = useContext(AuthContext);
+
+  if (context === null) {
+    throw new Error('useAuth doit être utilisé à l\'intérieur d\'un <AuthProvider>');
+  }
+
+  return context;
 }
