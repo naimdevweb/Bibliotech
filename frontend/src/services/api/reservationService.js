@@ -1,15 +1,45 @@
 /**
- * Service ReservationService - Gestion des réservations
- *
- * Fonctions :
- * - getMyReservations() : GET /api/reservations/my-reservations
- * - createReservation(bookId) : POST /api/reservations
- * - cancelReservation(reservationId) : DELETE /api/reservations/:id
- * - getReservationQueue(bookId) : GET /api/reservations/queue/:bookId
+ * Service reservationService - Appels API pour les réservations
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+import { apiRequest } from './apiClient';
 
 export const reservationService = {
-  // TODO: Implémenter toutes les fonctions
+  /**
+   * Récupère les réservations de l'utilisateur connecté
+   * @returns {Promise<{data: Array}>}
+   */
+  getMyReservations() {
+    return apiRequest('/reservations/my-reservations');
+  },
+
+  /**
+   * Crée une réservation pour un livre
+   * @param {number} bookId
+   * @returns {Promise<{reservation: Object}>}
+   */
+  createReservation(bookId) {
+    return apiRequest('/reservations', {
+      method: 'POST',
+      body: JSON.stringify({ book_id: bookId }),
+    });
+  },
+
+  /**
+   * Annule une réservation
+   * @param {number} reservationId
+   * @returns {Promise<null>}
+   */
+  cancelReservation(reservationId) {
+    return apiRequest(`/reservations/${reservationId}`, { method: 'DELETE' });
+  },
+
+  /**
+   * Récupère la file d'attente pour un livre (bibliothécaire)
+   * @param {number} bookId
+   * @returns {Promise<{data: Array}>}
+   */
+  getQueue(bookId) {
+    return apiRequest(`/reservations/queue/${bookId}`);
+  },
 };

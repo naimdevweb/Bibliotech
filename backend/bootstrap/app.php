@@ -17,6 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\CheckRole::class,
         ]);
 
+        // Exclure les routes API du middleware CSRF (car elles utilisent Sanctum)
+        $middleware->validateCsrfTokens(except: [
+            'api/*',
+        ]);
+
         // Autoriser les cookies Sanctum depuis le frontend (CORS)
         $middleware->statefulApi();
     })

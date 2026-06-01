@@ -1,18 +1,74 @@
 /**
- * Service UserService - Gestion des utilisateurs
- *
- * Fonctions :
- * - getAllUsers() : GET /api/users (bibliothécaire/admin uniquement)
- * - getUserById(id) : GET /api/users/:id
- * - updateUser(id, userData) : PUT /api/users/:id
- * - deleteUser(id) : DELETE /api/users/:id
- * - activateUser(id) : PUT /api/users/:id/activate
- * - suspendUser(id) : PUT /api/users/:id/suspend
- * - exportMyData() : GET /api/users/export-my-data (RGPD)
+ * Service userService - Appels API pour la gestion des utilisateurs
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+import { apiRequest } from './apiClient';
 
 export const userService = {
-  // TODO: Implémenter toutes les fonctions
+  /**
+   * Récupère la liste des utilisateurs (bibliothécaire/admin)
+   * @param {Object} params - Filtres : role, status, search, page
+   * @returns {Promise<Object>}
+   */
+  getAllUsers(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    return apiRequest(`/users${query ? `?${query}` : ''}`);
+  },
+
+  /**
+   * Récupère un utilisateur par son ID
+   * @param {number} userId
+   * @returns {Promise<{user: Object}>}
+   */
+  getUserById(userId) {
+    return apiRequest(`/users/${userId}`);
+  },
+
+  /**
+   * Met à jour les informations d'un utilisateur
+   * @param {number} userId
+   * @param {Object} userData - Champs à modifier
+   * @returns {Promise<{user: Object}>}
+   */
+  updateUser(userId, userData) {
+    return apiRequest(`/users/${userId}`, {
+      method: 'PUT',
+      body: JSON.stringify(userData),
+    });
+  },
+
+  /**
+   * Supprime un compte (RGPD) — uniquement si aucun emprunt actif
+   * @param {number} userId
+   * @returns {Promise<null>}
+   */
+  deleteUser(userId) {
+    return apiRequest(`/users/${userId}`, { method: 'DELETE' });
+  },
+
+  /**
+   * Active un compte en attente de validation (bibliothécaire)
+   * @param {number} userId
+   * @returns {Promise<{user: Object}>}
+   */
+  activateUser(userId) {
+    return apiRequest(`/users/${userId}/activate`, { method: 'PUT' });
+  },
+
+  /**
+   * Suspend un compte (bibliothécaire)
+   * @param {number} userId
+   * @returns {Promise<{user: Object}>}
+   */
+  suspendUser(userId) {
+    return apiRequest(`/users/${userId}/suspend`, { method: 'PUT' });
+  },
+
+  /**
+   * Exporte les données personnelles de l'utilisateur connecté (RGPD)
+   * @returns {Promise<Object>} JSON avec toutes les données
+   */
+  exportMyData() {
+    return apiRequest('/users/export-my-data');
+  },
 };

@@ -13,10 +13,25 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+
+            // Numéro d'adhérent unique (généré automatiquement)
+            $table->string('membership_number', 20)->unique();
+
+            // Informations personnelles
+            $table->string('first_name', 100);
+            $table->string('last_name', 100);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            // Coordonnées (optionnelles)
+            $table->string('phone', 20)->nullable();
+            $table->string('address', 255)->nullable();
+
+            // Rôle et statut
+            $table->enum('role', ['lecteur', 'bibliothecaire', 'admin'])->default('lecteur');
+            $table->enum('status', ['en_attente', 'actif', 'suspendu'])->default('en_attente');
+
             $table->rememberToken();
             $table->timestamps();
         });

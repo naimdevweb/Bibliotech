@@ -3,29 +3,54 @@
  */
 
 /**
- * Formate une date au format français : 01/12/2024
- * @param {string|Date} date - Date à formater
- * @returns {string} Date formatée
+ * Formate une date en français : 01/12/2024
+ * @param {string|Date} date
+ * @returns {string}
  */
 export function formatDate(date) {
-  // TODO: Implémenter avec new Date().toLocaleDateString('fr-FR')
+  if (!date) return '-';
+  return new Date(date).toLocaleDateString('fr-FR', {
+    day: '2-digit', month: '2-digit', year: 'numeric',
+  });
 }
 
 /**
- * Calcule le nombre de jours entre deux dates
- * @param {string|Date} date1 - Première date
- * @param {string|Date} date2 - Deuxième date
- * @returns {number} Nombre de jours
+ * Formate une date en français avec heure : 01/12/2024 à 14:30
+ * @param {string|Date} date
+ * @returns {string}
  */
-export function daysBetween(date1, date2) {
-  // TODO: Implémenter
+export function formatDateTime(date) {
+  if (!date) return '-';
+  return new Date(date).toLocaleDateString('fr-FR', {
+    day: '2-digit', month: '2-digit', year: 'numeric',
+    hour: '2-digit', minute: '2-digit',
+  });
 }
 
 /**
- * Formate une date relative : "il y a 2 jours", "dans 5 jours"
- * @param {string|Date} date - Date à formater
- * @returns {string} Date relative
+ * Calcule le nombre de jours entre aujourd'hui et une date cible
+ * Positif = dans le futur, négatif = dans le passé
+ * @param {string|Date} date
+ * @returns {number}
  */
-export function formatRelativeDate(date) {
-  // TODO: Implémenter
+export function daysUntil(date) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const target = new Date(date);
+  target.setHours(0, 0, 0, 0);
+  return Math.round((target - today) / (1000 * 60 * 60 * 24));
+}
+
+/**
+ * Retourne une chaîne lisible selon l'échéance :
+ *   "dans 3 jours", "aujourd'hui", "en retard de 2 jours"
+ * @param {string|Date} dueDate
+ * @returns {string}
+ */
+export function formatDueDate(dueDate) {
+  const days = daysUntil(dueDate);
+  if (days > 1)   return `dans ${days} jours`;
+  if (days === 1) return 'demain';
+  if (days === 0) return "aujourd'hui";
+  return `en retard de ${Math.abs(days)} jour${Math.abs(days) > 1 ? 's' : ''}`;
 }

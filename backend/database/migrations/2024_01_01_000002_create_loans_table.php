@@ -12,11 +12,29 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('loans', function (Blueprint $table) {
-            $table->id();
-            // TODO: Ajouter user_id, book_id (foreign keys)
-            // TODO: Ajouter loan_date, due_date, return_date, extension_count, status
-            // TODO: Ajouter index sur user_id, book_id, status
-            $table->timestamps();
+          $table->id();
+      // Foreign keys
+      $table->foreignId('user_id')->constrained()->onDelete('cascade');
+      $table->foreignId('book_id')->constrained()->onDelete('restrict');
+
+      // Dates
+      $table->date('loan_date');
+      $table->date('due_date');
+      $table->date('return_date')->nullable();
+
+      
+      $table->integer('extension_count')->default(0);
+      
+      $table->enum('status', ['en_cours', 'termine', 'en_retard'])->default('en_cours');
+
+      $table->timestamps();
+
+      
+     $table->index('user_id');
+  $table->index('book_id');
+  $table->index('status');
+
+
         });
     }
 

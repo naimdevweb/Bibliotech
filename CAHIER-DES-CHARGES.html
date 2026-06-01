@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cahier des charges - BiblioConnect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: white;
+            padding: 40px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #1a1a2e;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #1a1a2e;
+            margin: 40px 0 20px 0;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            color: #333;
+            margin: 30px 0 15px 0;
+        }
+
+        h4 {
+            font-size: 1.15em;
+            color: #444;
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: #1a1a2e;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background: #f5f5f5;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .emoji-title {
+            font-size: 1.1em;
+        }
+
+        .check-list li {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .advantages {
+            margin-top: 10px;
+        }
+
+        .problems {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📝 Cahier des charges - BiblioConnect</h1>
+
+    <!-- ========== 1. CADRE DU PROJET ========== -->
+    <h2>📌 1. Cadre du projet</h2>
+
+    <h3>📄 1.1. Résumé</h3>
+    <p><strong>BiblioConnect</strong> est une application web communautaire destinée aux <strong>lecteurs francophones</strong> souhaitant accéder facilement au catalogue d'une bibliothèque municipale, emprunter des livres, effectuer des réservations et découvrir de nouvelles lectures adaptées à leurs goûts.</p>
+    <p>L'application permet aux utilisateurs de créer un compte lecteur, de consulter le catalogue de 100 000 livres, de rechercher des ouvrages selon plusieurs critères (titre, auteur, genre, disponibilité), de réserver des livres, de laisser des avis et d'échanger via un système de recommandations personnalisées.</p>
+    <p>L'objectif principal de BiblioConnect est de <strong>faciliter l'accès à la culture</strong>, d'améliorer l'expérience de lecture et de lutter contre les difficultés à trouver le bon livre. L'application vise également à <strong>optimiser le travail du personnel</strong> de la bibliothèque en automatisant les tâches répétitives comme les rappels de retour ou la gestion des réservations.</p>
+
+    <h3>🌍 1.2. Contexte du projet</h3>
+    <p>Avec la montée en puissance du numérique et des services en ligne, de nombreux lecteurs souhaitent pouvoir consulter le catalogue de leur bibliothèque depuis chez eux, vérifier la disponibilité d'un livre avant de se déplacer, et recevoir des notifications pour leurs emprunts.</p>
+    <p>Les solutions existantes sont souvent complexes (logiciels professionnels type Koha, PMB) ou dispersées (sites web peu ergonomiques, pas d'application mobile).</p>
+    <p>BiblioConnect s'inscrit dans une volonté de <strong>moderniser l'accès à la bibliothèque</strong> au sein d'une application web moderne, intuitive et pensée spécifiquement pour les lecteurs de tous âges et de tous niveaux techniques.</p>
+
+    <h3>🎯 1.3. Enjeux et objectifs</h3>
+    <ul class="check-list">
+        <li>✅ Faciliter la recherche de livres dans un catalogue de 100 000 ouvrages</li>
+        <li>✅ Centraliser les informations des lecteurs et leurs emprunts</li>
+        <li>✅ Permettre la réservation de livres non disponibles</li>
+        <li>✅ Automatiser les notifications (rappels de retour, livres disponibles)</li>
+        <li>✅ Offrir un système d'avis et de recommandations personnalisées</li>
+        <li>✅ Favoriser l'engagement des lecteurs avec des favoris et un historique</li>
+        <li>✅ Proposer une expérience web fluide et moderne (responsive mobile/desktop)</li>
+        <li>✅ Poser des bases solides pour des évolutions futures (application mobile native, etc.)</li>
+    </ul>
+
+    <h3>📦 1.4. Livrables</h3>
+    <ul class="check-list">
+        <li>📌 Une application web fonctionnelle (SPA React + API Laravel)</li>
+        <li>📌 Une interface utilisateur claire, moderne et ergonomique</li>
+        <li>📌 Un système d'authentification et de gestion de profil lecteur</li>
+        <li>📌 Une base de données de 100 000 livres (OpenLibrary)</li>
+        <li>📌 Un système de recherche avancée optimisé (Big Data)</li>
+        <li>📌 Un système de réservations avec file d'attente</li>
+        <li>📌 Un système de favoris et d'avis</li>
+        <li>📌 Un module de gestion des emprunts/retours (bibliothécaires)</li>
+        <li>📌 Un dashboard administrateur avec statistiques</li>
+        <li>📌 Un système de notifications automatiques par email</li>
+        <li>📌 Une API REST sécurisée et documentée</li>
+    </ul>
+
+    <!-- ========== 2. BENCHMARK ========== -->
+    <h2>📊 2. Benchmark</h2>
+
+    <h3>🔎 2.1. Présentation des plateformes analysées</h3>
+
+    <h4>📚 2.1.1. Koha</h4>
+    <p>Koha est un système intégré de gestion de bibliothèque (SIGB) open-source, utilisé par de nombreuses bibliothèques dans le monde.</p>
+    <p><strong>Avantages :</strong></p>
+    <ul>
+        <li>Solution complète et professionnelle</li>
+        <li>Open-source et gratuit</li>
+        <li>Fonctionnalités très riches (catalogage, prêts, acquisitions)</li>
+    </ul>
+    <p><strong>Faiblesses :</strong></p>
+    <ul>
+        <li>Interface utilisateur datée et peu intuitive</li>
+        <li>Complexité d'installation et de configuration</li>
+        <li>Peu adapté aux petites bibliothèques ou aux utilisateurs non-techniques</li>
+    </ul>
+
+    <h4>📕 2.1.2. Babelio</h4>
+    <p>Babelio est un réseau social français dédié aux livres et aux lecteurs, permettant de découvrir des livres, lire des critiques et échanger avec d'autres lecteurs.</p>
+    <p><strong>Avantages :</strong></p>
+    <ul>
+        <li>Interface moderne et agréable</li>
+        <li>Communauté francophone très active</li>
+        <li>Système d'avis et de recommandations performant</li>
+        <li>Catalogue de livres très complet</li>
+    </ul>
+    <p><strong>Faiblesses :</strong></p>
+    <ul>
+        <li>Pas de gestion de prêts ou de réservations</li>
+        <li>Pas conçu pour les bibliothèques (usage personnel uniquement)</li>
+        <li>Pas de fonctionnalités pour le personnel</li>
+    </ul>
+
+    <h4>📗 2.1.3. BnF Catalogue</h4>
+    <p>Le catalogue en ligne de la Bibliothèque nationale de France permet de rechercher parmi des millions de documents.</p>
+    <p><strong>Avantages :</strong></p>
+    <ul>
+        <li>Catalogue très complet et fiable</li>
+        <li>Recherche avancée puissante</li>
+        <li>Données bibliographiques de référence</li>
+    </ul>
+    <p><strong>Faiblesses :</strong></p>
+    <ul>
+        <li>Interface austère et peu engageante</li>
+        <li>Expérience utilisateur complexe pour les non-initiés</li>
+        <li>Pas de fonctionnalités communautaires</li>
+    </ul>
+
+    <h3>💡 2.2. Enseignements pour BiblioConnect</h3>
+    <p>BiblioConnect doit se différencier par :</p>
+    <ul>
+        <li>Une <strong>UX simple et directe</strong></li>
+        <li>Une <strong>recherche de livres optimisée</strong> pour gérer 100 000 ouvrages</li>
+        <li>Une <strong>approche communautaire</strong> (avis, recommandations) inspirée de Babelio</li>
+        <li>Un <strong>focus sur les lecteurs francophones</strong> de tous âges</li>
+        <li>Une application pensée <strong>responsive-first</strong> (mobile et desktop)</li>
+    </ul>
+
+    <!-- ========== 3. CONSIDÉRATIONS MARKETING ========== -->
+    <h2>📣 3. Considérations Marketing</h2>
+
+    <h3>🎯 3.1. Cible & Positionnement</h3>
+    <p><strong>👥 Public cible :</strong></p>
+    <ul>
+        <li>Lecteurs de 15 à 70 ans</li>
+        <li>Lecteurs occasionnels ou réguliers</li>
+        <li>Habitants de la commune (usagers de la bibliothèque)</li>
+        <li>Francophones</li>
+    </ul>
+
+    <p><strong>📌 Persona type :</strong></p>
+    <table>
+        <thead>
+            <tr>
+                <th>🧑 Persona</th>
+                <th>Petite biographie</th>
+                <th>🎯 Attentes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Marie, 35 ans, Salariée</td>
+                <td>📚 Lit 2-3 livres par mois<br>🎯 Aime les romans policiers<br>📱 Se déplace à la bibliothèque le samedi</td>
+                <td>Voir la disponibilité avant de se déplacer<br>Réserver un livre depuis chez elle<br>Recevoir des recommandations</td>
+            </tr>
+            <tr>
+                <td>Thomas, 22 ans, Étudiant</td>
+                <td>📚 Cherche des ouvrages pour ses études<br>🎯 A peu de temps<br>💻 Consulte le catalogue entre deux cours</td>
+                <td>Une recherche rapide et efficace<br>Pouvoir renouveler ses emprunts en ligne<br>Un site web responsive accessible partout</td>
+            </tr>
+            <tr>
+                <td>Jean, 62 ans, Retraité</td>
+                <td>📚 Lecteur passionné de biographies<br>🎯 Va à la bibliothèque chaque semaine<br>📱 Niveau tech : débutant</td>
+                <td>Une interface simple et lisible<br>Voir son historique d'emprunts<br>Découvrir de nouveaux auteurs</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>📢 3.2. Stratégie de Communication</h3>
+    <p><strong>📌 Canaux privilégiés :</strong></p>
+    <ul>
+        <li><strong>Site de la mairie</strong> et réseaux de la commune</li>
+        <li><strong>Affiches</strong> à la bibliothèque</li>
+        <li><strong>Bouche-à-oreille</strong> entre lecteurs</li>
+        <li><strong>Newsletter</strong> de la bibliothèque</li>
+    </ul>
+
+    <p><strong>🎙 Ton de communication :</strong></p>
+    <ul>
+        <li>Accessible & bienveillant 📚</li>
+        <li>Culturel & enrichissant 🌟</li>
+        <li>Clair & rassurant 🤝</li>
+    </ul>
+
+    <h3>🔔 3.3. Engagement & Fidélisation</h3>
+    <p><strong>📌 Mécanismes :</strong></p>
+    <ul>
+        <li>Notifications email pour les retours à venir</li>
+        <li>Notification quand un livre réservé est disponible</li>
+        <li>Mise en avant des nouveautés et des livres populaires</li>
+        <li>Système de favoris personnalisés</li>
+        <li>Évolutions futures : badges de lecteur, statistiques de lecture, défis lecture</li>
+    </ul>
+
+    <!-- ========== 4. CONCEPTION GRAPHIQUE ========== -->
+    <h2>🎨 4. Conception Graphique</h2>
+
+    <h3>✨ 4.1. Brief Créatif</h3>
+    <p>BiblioConnect adopte une identité :</p>
+    <ul>
+        <li>Moderne</li>
+        <li>Chaleureuse</li>
+        <li>Inspirée de l'univers littéraire</li>
+    </ul>
+
+    <p><strong>📌 Ambiance :</strong></p>
+    <ul>
+        <li>📚 Culturelle & apaisante</li>
+        <li>🌿 Claire et lumineuse (lecture-friendly)</li>
+        <li>⚡ UI épurée et lisible</li>
+    </ul>
+
+    <p><strong>📌 Style graphique :</strong></p>
+    <ul>
+        <li>Cartes pour les livres (couvertures mises en avant)</li>
+        <li>Icônes simples (Heroicons)</li>
+        <li>Typographie moderne et lisible</li>
+        <li>Animations légères</li>
+    </ul>
+
+    <h3>🎨 4.2. Aperçu de la Charte Graphique</h3>
+
+    <p><strong>📌 Palette de couleurs 🎨</strong></p>
+    <table>
+        <thead>
+            <tr>
+                <th>🎨 Couleur</th>
+                <th>Rôle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color: #1E40AF;"><strong>#1E40AF</strong></td>
+                <td>Couleur principale (bleu profond - confiance, culture)</td>
+            </tr>
+            <tr>
+                <td style="color: #F59E0B;"><strong>#F59E0B</strong></td>
+                <td>Boutons CTA (orange - action)</td>
+            </tr>
+            <tr>
+                <td style="color: #10B981;"><strong>#10B981</strong></td>
+                <td>Succès, disponible (vert)</td>
+            </tr>
+            <tr>
+                <td style="color: #EF4444;"><strong>#EF4444</strong></td>
+                <td>Alertes, retards (rouge)</td>
+            </tr>
+            <tr>
+                <td><strong>#FFFFFF</strong></td>
+                <td>Background principal</td>
+            </tr>
+            <tr>
+                <td><strong>#374151</strong></td>
+                <td>Texte principal</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>📌 Typographie ✍️</strong></p>
+    <ul>
+        <li><strong>Titres :</strong> Inter Bold</li>
+        <li><strong>Textes & corps :</strong> Inter Regular (fluide et confortable pour la lecture)</li>
+    </ul>
+
+    <!-- ========== 5. SPÉCIFICATIONS FONCTIONNELLES ========== -->
+    <h2>⚙️ 5. Spécifications Fonctionnelles</h2>
+
+    <h3>📌 5.1. Présentation Générale</h3>
+    <p>BiblioConnect permet aux lecteurs de :</p>
+    <ul>
+        <li>Créer un compte lecteur</li>
+        <li>Consulter le catalogue de 100 000 livres</li>
+        <li>Rechercher des livres avec filtres avancés</li>
+        <li>Réserver des livres non disponibles</li>
+        <li>Voir leurs emprunts en cours et leur historique</li>
+        <li>Laisser des avis et noter les livres</li>
+        <li>Ajouter des livres en favoris</li>
+        <li>Recevoir des recommandations personnalisées</li>
+    </ul>
+
+    <h3>🏗 5.2. Fonctionnalités Principales</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>🏷 Fonctionnalité</th>
+                <th>📖 Description</th>
+                <th>🔍 Détails</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Authentification</strong></td>
+                <td>Création de compte</td>
+                <td>Email / mot de passe + JWT</td>
+            </tr>
+            <tr>
+                <td><strong>Profil lecteur</strong></td>
+                <td>Informations personnelles</td>
+                <td>Nom, email, préférences, RGPD</td>
+            </tr>
+            <tr>
+                <td><strong>Catalogue</strong></td>
+                <td>100 000 livres</td>
+                <td>Titre, auteur, couverture, résumé</td>
+            </tr>
+            <tr>
+                <td><strong>Recherche avancée</strong></td>
+                <td>Recherche optimisée Big Data</td>
+                <td>Full-text PostgreSQL, filtres, pagination</td>
+            </tr>
+            <tr>
+                <td><strong>Emprunts</strong></td>
+                <td>Gestion des prêts</td>
+                <td>Création, retour, historique</td>
+            </tr>
+            <tr>
+                <td><strong>Réservations</strong></td>
+                <td>File d'attente</td>
+                <td>Réserver, position, notification</td>
+            </tr>
+            <tr>
+                <td><strong>Avis & Notes</strong></td>
+                <td>Retours des lecteurs</td>
+                <td>Note 1-5 étoiles, commentaire</td>
+            </tr>
+            <tr>
+                <td><strong>Favoris</strong></td>
+                <td>Liste personnelle</td>
+                <td>Ajouter/retirer des favoris</td>
+            </tr>
+            <tr>
+                <td><strong>Notifications</strong></td>
+                <td>Alertes automatiques</td>
+                <td>Rappels retour, livre disponible</td>
+            </tr>
+            <tr>
+                <td><strong>Dashboard Admin</strong></td>
+                <td>Statistiques</td>
+                <td>Emprunts, retards, popularité</td>
+            </tr>
+            <tr>
+                <td><strong>Recommandations</strong></td>
+                <td>Suggestions personnalisées</td>
+                <td>Basées sur l'historique et les goûts</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>🚀 5.3. Roadmap des Fonctionnalités</h3>
+
+    <p><strong>📅 Version 1.0 (MVP)</strong></p>
+    <ul class="check-list">
+        <li>✅ Authentification (inscription, connexion, JWT)</li>
+        <li>✅ Profil lecteur</li>
+        <li>✅ Catalogue de livres (100 000 livres)</li>
+        <li>✅ Recherche avancée avec filtres</li>
+        <li>✅ Gestion des emprunts (lecteur et bibliothécaire)</li>
+        <li>✅ Système de réservations</li>
+        <li>✅ Notifications automatiques par email</li>
+    </ul>
+
+    <p><strong>📅 Version 2.0</strong></p>
+    <ul class="check-list">
+        <li>🔜 Système d'avis et notes</li>
+        <li>🔜 Favoris</li>
+        <li>🔜 Recommandations personnalisées</li>
+        <li>🔜 Dashboard statistiques admin</li>
+        <li>🔜 Export données RGPD</li>
+    </ul>
+
+    <p><strong>📅 Version 3.0 (évolutions futures)</strong></p>
+    <ul class="check-list">
+        <li>🔜 Application mobile native</li>
+        <li>🔜 Badges et gamification</li>
+        <li>🔜 Statistiques de lecture personnelles</li>
+        <li>🔜 Défis lecture communautaires</li>
+    </ul>
+
+    <!-- ========== 6. SPÉCIFICATIONS TECHNIQUES ========== -->
+    <h2>⚙️ 6. Spécifications Techniques</h2>
+
+    <h3>🖥 6.1. Architecture Générale</h3>
+    <p>BiblioConnect repose sur une <strong>architecture moderne et évolutive</strong>, combinant <strong>SPA, API REST et responsive-first</strong> pour une expérience fluide et performante.</p>
+
+    <p><strong>📌 Structure en trois couches :</strong></p>
+    <ul>
+        <li><strong>Application Web (Frontend) 🖥</strong> : Utilisation de <strong>React avec Vite</strong>, permettant une expérience SPA fluide sur tous les appareils.</li>
+        <li><strong>Backend (API) 🏗</strong> : API construite avec <strong>Laravel 10 + Sanctum</strong> (authentification JWT).</li>
+        <li><strong>Base de données 🗄</strong> : <strong>PostgreSQL</strong>, optimisée pour le Big Data (100 000 livres) avec index et recherche full-text.</li>
+        <li><strong>Cache 🚀</strong> : <strong>Redis</strong> pour accélérer les requêtes fréquentes.</li>
+    </ul>
+
+    <h3>🛠 6.2. Technologies Utilisées</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Domaine</th>
+                <th>Technologie</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Frontend 🖥</strong></td>
+                <td>React 19 + Vite + Tailwind CSS</td>
+            </tr>
+            <tr>
+                <td><strong>Backend 🏗</strong></td>
+                <td>Laravel 10 + Sanctum (JWT)</td>
+            </tr>
+            <tr>
+                <td><strong>Base de données 🗄</strong></td>
+                <td>PostgreSQL (optimisé Big Data)</td>
+            </tr>
+            <tr>
+                <td><strong>Cache 🚀</strong></td>
+                <td>Redis</td>
+            </tr>
+            <tr>
+                <td><strong>Hébergement ☁️</strong></td>
+                <td>Vercel (frontend) + Railway (backend + BDD)</td>
+            </tr>
+            <tr>
+                <td><strong>Authentification 🔐</strong></td>
+                <td>Laravel Sanctum (JWT)</td>
+            </tr>
+            <tr>
+                <td><strong>API Livres 📚</strong></td>
+                <td>OpenLibrary (import initial)</td>
+            </tr>
+            <tr>
+                <td><strong>Emails 📧</strong></td>
+                <td>Laravel Mail + SMTP</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>🔐 6.3. Sécurité & RGPD</h3>
+    <ul>
+        <li>Chiffrement des mots de passe (bcrypt)</li>
+        <li>Authentification sécurisée JWT</li>
+        <li>Protection CSRF et CORS</li>
+        <li>Validation stricte des données (FormRequests Laravel)</li>
+        <li>Conformité RGPD (suppression de compte, export des données)</li>
+        <li>HTTPS obligatoire en production</li>
+    </ul>
+
+</body>
+</html>

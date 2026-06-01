@@ -15,12 +15,20 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            // TODO: Ajouter tous les champs (title, author, isbn, etc.)
-            // TODO: Ajouter les index :
-            // $table->index('title');
-            // $table->index('author');
-            // $table->unique('isbn');
+            $table->string('title', 255);
+            $table->string('author', 255);
+            $table->string('isbn', 13)->unique();
+            $table->string('publisher', 255)->nullable();
+            $table->integer('publication_year')->nullable();
+            $table->string('genre', 100)->nullable();
+            $table->text('summary')->nullable();
+            $table->string('cover_image_url', 255)->nullable();
+            $table->integer('total_quantity')->default(1);
+            $table->integer('available_quantity')->default(1);
             $table->timestamps();
+            $table->index('title');
+            $table->index('author');
+            $table->index('genre');
         });
     }
 
@@ -29,3 +37,4 @@ return new class extends Migration
         Schema::dropIfExists('books');
     }
 };
+   

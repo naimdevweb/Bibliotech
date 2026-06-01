@@ -1,18 +1,39 @@
 /**
- * Service StatsService - Statistiques (admin uniquement)
- *
- * Fonctions :
- * - getKPIs() : GET /api/stats/kpis
- * - getLoansByMonth() : GET /api/stats/loans-by-month
- * - getTopBooks(limit) : GET /api/stats/top-books?limit=10
- * - getBooksByGenre() : GET /api/stats/books-by-genre
- * - getNeverBorrowedBooks() : GET /api/stats/never-borrowed
- * - getInactiveUsers() : GET /api/stats/inactive-users
- * - exportStats(format) : GET /api/stats/export?format=pdf
+ * Service statsService - Appels API pour les statistiques (admin uniquement)
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+import { apiRequest } from './apiClient';
 
 export const statsService = {
-  // TODO: Implémenter toutes les fonctions
+  /**
+   * Récupère les indicateurs clés (KPI) : adhérents, livres, emprunts, retards
+   * @returns {Promise<Object>}
+   */
+  getKPIs() {
+    return apiRequest('/stats/dashboard');
+  },
+
+  /**
+   * Statistiques sur les livres (répartition par genre, jamais empruntés)
+   * @returns {Promise<Object>}
+   */
+  getBooksStats() {
+    return apiRequest('/stats/books');
+  },
+
+  /**
+   * Statistiques sur les emprunts (évolution par mois, top 10 livres)
+   * @returns {Promise<Object>}
+   */
+  getLoansStats() {
+    return apiRequest('/stats/loans');
+  },
+
+  /**
+   * Statistiques sur les utilisateurs (actifs, inactifs)
+   * @returns {Promise<Object>}
+   */
+  getUsersStats() {
+    return apiRequest('/stats/users');
+  },
 };

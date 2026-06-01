@@ -13,8 +13,22 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            // TODO: Ajouter user_id, type, subject, message, sent_at
+
+            // Foreign key
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
+            // Colonnes
+            $table->enum('type', ['loan_confirmation', 'due_reminder', 'overdue_alert', 'reservation_available']);
+            $table->string('subject', 255);
+            $table->text('message');
+            $table->timestamp('sent_at');
+
             $table->timestamps();
+
+            // Index pour optimiser les recherches
+            $table->index('user_id');
+            $table->index('type');
+            $table->index('sent_at');
         });
     }
 

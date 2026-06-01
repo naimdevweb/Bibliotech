@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compréhension du Besoin Client - Projet CDA</title>
+    <style>
+        @page {
+            margin: 20mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            padding: 40mm 25mm;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+
+        /* PAGE DE GARDE */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            padding: 60mm 25mm;
+        }
+
+        .cover-logo {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 30px 60px;
+            font-size: 2em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            border: 4px solid #333;
+            margin-bottom: 40px;
+        }
+
+        .cover-title {
+            font-size: 2.5em;
+            color: #059669;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .cover-subtitle {
+            font-size: 1.6em;
+            color: #374151;
+            font-weight: 400;
+            margin-bottom: 60px;
+        }
+
+        .cover-box {
+            background: #f0fdf4;
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid #10b981;
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .cover-box p {
+            color: #374151;
+            font-size: 1em;
+            line-height: 1.8;
+        }
+
+        /* SECTIONS */
+        .section-title {
+            font-size: 2.2em;
+            color: #059669;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #10b981;
+        }
+
+        .section-subtitle {
+            font-size: 1.6em;
+            color: #374151;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d1fae5;
+        }
+
+        .subsection-title {
+            font-size: 1.3em;
+            color: #047857;
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .example-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .example-box h4 {
+            color: #d97706;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        table th {
+            background: #059669;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #d1fae5;
+        }
+
+        table tr:nth-child(even) {
+            background: #f0fdf4;
+        }
+
+        .star-rating {
+            color: #f59e0b;
+            font-size: 1.2em;
+        }
+
+        .priority-high {
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .priority-medium {
+            background: #f59e0b;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .checkmark {
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .arrow {
+            color: #059669;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .footer-page {
+            position: absolute;
+            bottom: 20mm;
+            left: 25mm;
+            right: 25mm;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9em;
+            padding-top: 15px;
+            border-top: 1px solid #d1fae5;
+        }
+
+        strong {
+            color: #047857;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE DE GARDE -->
+    <div class="page cover-page">
+        <div>
+            <div class="cover-logo">GESTION DE PROJET AGILE</div>
+            <h1 class="cover-title">Compréhension du<br>Besoin Client</h1>
+            <h2 class="cover-subtitle">Projet : Système de Gestion de Bibliothèque Municipale</h2>
+        </div>
+
+        <div class="cover-box">
+            <p><strong>Candidat :</strong> Naim H.</p>
+            <p><strong>Formation :</strong> Concepteur Développeur d'Applications</p>
+            <p><strong>Référentiel :</strong> RNCP 37873</p>
+            <p><strong>Date :</strong> Janvier 2026</p>
+        </div>
+
+        <div style="margin-top: 60px; color: #6b7280; font-size: 0.9em;">
+            <p><strong>Document créé dans le cadre du titre professionnel CDA</strong></p>
+        </div>
+    </div>
+
+    <!-- PAGE 1 : INTRODUCTION -->
+    <div class="page">
+        <h1 class="section-title">📋 Introduction</h1>
+
+        <p>Dans le cadre de mon projet CDA, je dois développer une application web pour moderniser la gestion d'une bibliothèque municipale. Avant de me lancer dans le développement, j'ai pris le temps de bien comprendre les besoins réels de mes utilisateurs.</p>
+
+        <p>Ce document retrace ma démarche d'analyse et de compréhension du besoin client. Il s'appuie sur les méthodologies enseignées en formation, notamment l'approche centrée sur les objectifs et les techniques d'identification des parties prenantes.</p>
+
+        <div class="highlight-box">
+            <p><strong>Objectif de ce document :</strong></p>
+            <ul>
+                <li>Identifier toutes les parties prenantes du projet</li>
+                <li>Comprendre le POURQUOI avant le QUOI</li>
+                <li>Définir les vrais besoins (pas seulement les demandes apparentes)</li>
+                <li>Poser les bases d'une analyse des besoins approfondie</li>
+            </ul>
+        </div>
+
+        <h2 class="section-subtitle">💡 Principe fondamental : Ne pas confondre demande et besoin</h2>
+
+        <p>Il est important de comprendre qu'il ne faut pas demander ce que le client veut. En réalité, il faut comprendre <strong>pourquoi</strong> le client a besoin de l'outil.</p>
+
+        <div class="example-box">
+            <h4>🔨 L'exemple de la pelle (enseigné en formation)</h4>
+            <p>Un client peut nous dire qu'il a besoin d'une pelle. La solution la plus simple serait de la lui donner. Mais l'expression des besoins du client n'est pas de répondre à sa demande première.</p>
+            <p style="margin-top: 10px;"><strong>Creusons plus loin :</strong></p>
+            <ul>
+                <li>Il veut une pelle <span class="arrow">→</span> pourquoi ?</li>
+                <li>Pour creuser un trou <span class="arrow">→</span> pourquoi ?</li>
+                <li>Pour planter un arbre <span class="arrow">→</span> pourquoi ?</li>
+                <li>Pour faire de l'ombre <span class="arrow">→</span> pourquoi ?</li>
+                <li>Car sur sa terrasse, le soleil tape trop fort et il aimerait s'en protéger</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>Conclusion :</strong> Au final, le client a besoin d'un <strong>parasol</strong>, pas d'une pelle !</p>
+        </div>
+
+        <p>Pour comprendre le besoin du client, il faut comprendre ses motivations, et surtout son métier. Il faut pouvoir se mettre à sa place.</p>
+
+        <div class="footer-page">Page 1</div>
+    </div>
+
+    <!-- PAGE 2 : APPLICATION À MON PROJET -->
+    <div class="page">
+        <h1 class="section-title">🎯 Application à mon projet</h1>
+
+        <p>C'est exactement cette méthode que j'ai appliquée pour comprendre les vrais besoins de la bibliothèque.</p>
+
+        <div class="highlight-box">
+            <h3 style="color: #047857; margin-bottom: 15px;">Analyse en profondeur de la demande initiale</h3>
+
+            <p><strong>Demande initiale :</strong> "On veut informatiser nos prêts de livres"</p>
+
+            <p style="margin-top: 15px;"><strong>Pourquoi ?</strong></p>
+            <ul>
+                <li>Les fiches papier prennent trop de temps</li>
+                <li>On perd parfois la trace des emprunts</li>
+                <li>Les lecteurs ne savent pas quels livres sont disponibles</li>
+            </ul>
+
+            <p style="margin-top: 15px;"><strong>Pourquoi c'est un problème ?</strong></p>
+            <ul>
+                <li>Le personnel passe 30% de son temps en tâches administratives</li>
+                <li>Des livres sont perdus ou jamais rendus</li>
+                <li>Les lecteurs se déplacent pour rien quand le livre n'est pas disponible</li>
+            </ul>
+
+            <p style="margin-top: 15px;"><strong>Quel est le vrai besoin ?</strong></p>
+            <ul>
+                <li><span class="checkmark">✓</span> <strong>Gagner du temps</strong> pour que le personnel puisse se concentrer sur l'accompagnement des lecteurs</li>
+                <li><span class="checkmark">✓</span> <strong>Faciliter l'accès à la culture</strong> pour que les habitants lisent plus</li>
+                <li><span class="checkmark">✓</span> <strong>Optimiser les ressources</strong> pour éviter les pertes et mieux gérer le budget</li>
+            </ul>
+
+            <p style="margin-top: 15px;"><strong>Solution réelle :</strong> Une application complète qui facilite la vie des lecteurs ET du personnel, avec catalogue en ligne, réservations, notifications automatiques, et suivi en temps réel.</p>
+        </div>
+
+        <div class="example-box">
+            <h4>💡 Ce que j'ai appris de cette analyse</h4>
+            <p>Si je m'étais contenté de la demande initiale ("informatiser les prêts"), j'aurais créé un simple CRUD d'emprunts/retours. Mais en creusant le POURQUOI, j'ai compris qu'il fallait aller beaucoup plus loin :</p>
+            <ul>
+                <li>Catalogue consultable en ligne (pour éviter les déplacements inutiles)</li>
+                <li>Système de réservations (pour garantir l'accès aux livres)</li>
+                <li>Notifications automatiques (pour réduire les retards)</li>
+                <li>Recommandations personnalisées (pour encourager la lecture)</li>
+                <li>Statistiques d'utilisation (pour optimiser les achats)</li>
+            </ul>
+        </div>
+
+        <div class="footer-page">Page 2</div>
+    </div>
+
+    <!-- PAGE 3 : IDENTIFICATION DES PARTIES PRENANTES -->
+    <div class="page">
+        <h1 class="section-title">👥 Identification des Parties Prenantes</h1>
+
+        <h2 class="section-subtitle">Définition</h2>
+        <p>Les parties prenantes (ou <em>stakeholders</em> en anglais) sont toutes les personnes ou groupes qui ont un intérêt direct ou indirect dans le projet. Cela inclut ceux qui seront affectés par le projet ou ceux qui peuvent influencer son résultat.</p>
+
+        <h2 class="section-subtitle">Pourquoi identifier les parties prenantes ?</h2>
+        <ul>
+            <li><strong>Alignement des objectifs :</strong> S'assurer que les objectifs du projet sont alignés avec les attentes de tous</li>
+            <li><strong>Gestion des risques :</strong> Comprendre qui peut influencer ou être affecté par le projet</li>
+            <li><strong>Communication efficace :</strong> Savoir à qui s'adresser et comment communiquer</li>
+        </ul>
+
+        <h2 class="section-subtitle">Techniques d'identification utilisées</h2>
+
+        <h3 class="subsection-title">1. Brainstorming</h3>
+        <p>J'ai listé toutes les personnes qui pourraient être concernées en me posant ces questions :</p>
+        <ul>
+            <li>Qui va utiliser l'application ?</li>
+            <li>Qui la finance ?</li>
+            <li>Qui l'évalue ?</li>
+            <li>Qui peut influencer le projet ?</li>
+        </ul>
+
+        <h3 class="subsection-title">2. Analyse documentaire</h3>
+        <p>J'ai examiné :</p>
+        <ul>
+            <li>Le référentiel CDA (RNCP 37873)</li>
+            <li>Les documents de formation</li>
+            <li>Les règles métier du projet</li>
+        </ul>
+
+        <h3 class="subsection-title">3. Mise en situation</h3>
+        <p>Je me suis mis à la place de chaque utilisateur :</p>
+        <ul>
+            <li>"Si j'étais un lecteur, qu'est-ce que j'attendrais ?"</li>
+            <li>"Si j'étais bibliothécaire, comment je voudrais travailler ?"</li>
+            <li>"Si j'étais le jury CDA, qu'est-ce que je vérifierais ?"</li>
+        </ul>
+
+        <h3 class="subsection-title">4. Création de carte des parties prenantes</h3>
+        <p>J'ai créé un tableau pour visualiser et prioriser toutes les parties prenantes (voir page suivante).</p>
+
+        <div class="footer-page">Page 3</div>
+    </div>
+
+    <!-- PAGE 4 : MATRICE DES PARTIES PRENANTES -->
+    <div class="page">
+        <h1 class="section-title">📊 Matrice des Parties Prenantes</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Partie Prenante</th>
+                    <th>Rôle Principal</th>
+                    <th>Intérêt / Impact</th>
+                    <th>Priorité</th>
+                    <th>Influence</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Bibliothèque (Client)</strong></td>
+                    <td>Financement & Validation</td>
+                    <td>Objectifs et budget</td>
+                    <td><span class="priority-high">HAUTE</span></td>
+                    <td><span class="star-rating">★★★★★</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Lecteurs</strong></td>
+                    <td>Utilisation quotidienne</td>
+                    <td>Satisfaction & Usabilité</td>
+                    <td><span class="priority-high">HAUTE</span></td>
+                    <td><span class="star-rating">★★★★☆</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Bibliothécaires</strong></td>
+                    <td>Gestion opérationnelle</td>
+                    <td>Efficacité & Gain de temps</td>
+                    <td><span class="priority-high">HAUTE</span></td>
+                    <td><span class="star-rating">★★★★★</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Administrateur</strong></td>
+                    <td>Supervision</td>
+                    <td>Pilotage & Décisions</td>
+                    <td><span class="priority-high">HAUTE</span></td>
+                    <td><span class="star-rating">★★★★★</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Moi (Développeur)</strong></td>
+                    <td>Réalisation technique</td>
+                    <td>Qualité du produit</td>
+                    <td><span class="priority-high">HAUTE</span></td>
+                    <td><span class="star-rating">★★★★★</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Jury CDA</strong></td>
+                    <td>Évaluation</td>
+                    <td>Conformité référentiel</td>
+                    <td><span class="priority-high">HAUTE</span></td>
+                    <td><span class="star-rating">★★★★★</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Formateur</strong></td>
+                    <td>Accompagnement</td>
+                    <td>Bonnes pratiques</td>
+                    <td><span class="priority-medium">MOYENNE</span></td>
+                    <td><span class="star-rating">★★★☆☆</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Hébergeurs</strong></td>
+                    <td>Infrastructure</td>
+                    <td>Disponibilité technique</td>
+                    <td><span class="priority-medium">MOYENNE</span></td>
+                    <td><span class="star-rating">★★☆☆☆</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="highlight-box">
+            <h3 style="color: #047857; margin-bottom: 15px;">Analyse de la matrice</h3>
+            <p><strong>Parties prenantes avec priorité HAUTE (6) :</strong> Ces parties prenantes ont un impact direct et critique sur le succès du projet. Leurs besoins doivent être satisfaits en priorité.</p>
+            <p style="margin-top: 10px;"><strong>Parties prenantes avec priorité MOYENNE (2) :</strong> Ces parties prenantes ont un impact indirect mais restent importantes pour le bon déroulement du projet.</p>
+            <p style="margin-top: 10px;"><strong>Niveau d'influence :</strong> Les 5 étoiles indiquent un pouvoir de décision direct sur le projet. Ces parties prenantes peuvent valider, bloquer ou orienter les choix majeurs.</p>
+        </div>
+
+        <div class="footer-page">Page 4</div>
+    </div>
+
+    <!-- PAGE 5 : DÉTAIL DES PARTIES PRENANTES 1/2 -->
+    <div class="page">
+        <h1 class="section-title">🔍 Détail des Parties Prenantes (1/2)</h1>
+
+        <h2 class="section-subtitle">1. Le Client / Commanditaire : La Bibliothèque Municipale</h2>
+        <ul>
+            <li><strong>Rôle :</strong> Finance et valide le projet</li>
+            <li><strong>Besoin principal :</strong> Moderniser la gestion pour réduire les coûts et améliorer le service</li>
+            <li><strong>Attente :</strong> Une solution simple, efficace et facile à prendre en main</li>
+            <li><strong>Impact :</strong> Décide des fonctionnalités prioritaires et valide les livrables</li>
+        </ul>
+
+        <h2 class="section-subtitle">2. Les Utilisateurs Finaux - Lecteurs</h2>
+        <p><strong>Besoins principaux :</strong></p>
+        <ul>
+            <li>Trouver rapidement les livres qui les intéressent</li>
+            <li>Savoir si un livre est disponible avant de se déplacer</li>
+            <li>Réserver un livre qui les intéresse</li>
+            <li>Recevoir des rappels pour les retours</li>
+            <li>Découvrir de nouveaux livres</li>
+        </ul>
+        <p><strong>Attente :</strong> Interface simple, rapide, accessible depuis mobile</p>
+        <p><strong>Profil type :</strong> 25-55 ans, équipement smartphone + ordinateur, niveau tech moyen</p>
+
+        <h2 class="section-subtitle">3. Les Utilisateurs Finaux - Bibliothécaires</h2>
+        <p><strong>Besoins principaux :</strong></p>
+        <ul>
+            <li>Enregistrer rapidement les prêts et retours</li>
+            <li>Suivre les retards et relancer les lecteurs</li>
+            <li>Gérer le catalogue de livres</li>
+            <li>Voir les statistiques d'utilisation</li>
+        </ul>
+        <p><strong>Attente :</strong> Interface efficace, gain de temps, moins de tâches répétitives</p>
+        <p><strong>Profil type :</strong> 30-60 ans, niveau tech variable (débutant à intermédiaire), 6-8h/jour sur l'app</p>
+
+        <div class="example-box">
+            <h4>💬 Interview fictive - Une bibliothécaire</h4>
+            <p><em>"Je passe trop de temps à chercher les fiches papier, noter les dates, calculer les retards. J'aimerais juste scanner un code-barre et que tout se fasse automatiquement. Ça me permettrait de passer plus de temps à conseiller les lecteurs sur leurs choix de livres."</em></p>
+        </div>
+
+        <h2 class="section-subtitle">4. L'Administrateur / Directeur de Bibliothèque</h2>
+        <p><strong>Besoins principaux :</strong></p>
+        <ul>
+            <li>Dashboard avec statistiques clés</li>
+            <li>Gestion des droits utilisateurs</li>
+            <li>Rapports d'activité</li>
+        </ul>
+        <p><strong>Attente :</strong> Vision d'ensemble, aide à la prise de décision</p>
+
+        <div class="example-box">
+            <h4>💬 Interview fictive - Le directeur</h4>
+            <p><em>"Je veux pouvoir voir en un coup d'œil combien de livres sont empruntés, lesquels sont en retard, et quels sont les livres les plus populaires. Ça m'aidera à mieux gérer le budget d'acquisition et à choisir les bons livres pour notre public."</em></p>
+        </div>
+
+        <div class="footer-page">Page 5</div>
+    </div>
+
+    <!-- PAGE 6 : DÉTAIL DES PARTIES PRENANTES 2/2 -->
+    <div class="page">
+        <h1 class="section-title">🔍 Détail des Parties Prenantes (2/2)</h1>
+
+        <h2 class="section-subtitle">5. Moi - Le Développeur / Candidat CDA</h2>
+        <ul>
+            <li><strong>Rôle :</strong> Conception, développement et déploiement</li>
+            <li><strong>Besoin principal :</strong> Valider le titre professionnel CDA</li>
+            <li><strong>Attente :</strong> Projet démontrant mes compétences techniques, code de qualité</li>
+            <li><strong>Impact :</strong> Choix techniques, architecture, qualité du code</li>
+        </ul>
+
+        <h2 class="section-subtitle">6. Le Jury CDA</h2>
+        <ul>
+            <li><strong>Rôle :</strong> Évalue le projet pour validation du titre</li>
+            <li><strong>Besoin principal :</strong> Vérifier que je maîtrise les compétences requises (CCP1, CCP2, CCP3)</li>
+            <li><strong>Attente :</strong> Architecture solide, code propre, sécurisé, et documenté</li>
+            <li><strong>Impact :</strong> Décide de la validation ou non du titre professionnel</li>
+        </ul>
+
+        <div class="highlight-box">
+            <h3 style="color: #047857; margin-bottom: 15px;">Ce que le jury va évaluer :</h3>
+            <ul>
+                <li><span class="checkmark">✓</span> <strong>CCP1 :</strong> Interface utilisateur moderne, responsive et accessible</li>
+                <li><span class="checkmark">✓</span> <strong>CCP2 :</strong> Base de données bien conçue et optimisée</li>
+                <li><span class="checkmark">✓</span> <strong>CCP3 :</strong> Architecture multicouche (SPA + API REST MVC)</li>
+                <li><span class="checkmark">✓</span> <strong>Qualité du code :</strong> Propre, commenté, sécurisé, maintenable</li>
+                <li><span class="checkmark">✓</span> <strong>Documentation :</strong> Complète et professionnelle</li>
+            </ul>
+        </div>
+
+        <h2 class="section-subtitle">7. Le Formateur (jeremy@garage404.com)</h2>
+        <ul>
+            <li><strong>Rôle :</strong> M'accompagne dans la réalisation du projet</li>
+            <li><strong>Besoin principal :</strong> Suivre mon avancement et me guider</li>
+            <li><strong>Attente :</strong> Documentation claire, respect des bonnes pratiques</li>
+            <li><strong>Impact :</strong> Valide ma compréhension et m'alerte si je m'écarte du référentiel</li>
+        </ul>
+
+        <h2 class="section-subtitle">8. Hébergeurs / Fournisseurs Techniques</h2>
+        <ul>
+            <li><strong>Rôle :</strong> Hébergent l'application (Vercel, Railway)</li>
+            <li><strong>Impact :</strong> Disponibilité et performance de l'application</li>
+            <li><strong>Contrainte :</strong> Plans gratuits avec limitations (adapté pour un projet de formation)</li>
+        </ul>
+
+        <div class="footer-page">Page 6</div>
+    </div>
+
+    <!-- PAGE 7 : RÔLES ET RESPONSABILITÉS -->
+    <div class="page">
+        <h1 class="section-title">🎯 Rôles et Responsabilités</h1>
+
+        <h2 class="section-subtitle">Définir les attentes</h2>
+        <p>Chaque partie prenante doit clairement exprimer ses besoins. Pour cela, je me suis mis à leur place :</p>
+
+        <div class="example-box">
+            <h4>💬 Un lecteur régulier</h4>
+            <p><em>"J'aimerais pouvoir voir depuis chez moi si le livre que je veux est disponible. Et recevoir un mail quand un livre réservé est dispo, plutôt que de passer tous les jours à la bibliothèque."</em></p>
+        </div>
+
+        <h2 class="section-subtitle">Fournir des retours</h2>
+        <p>Tout au long du développement, je vais devoir recueillir les retours pour m'assurer que l'application répond bien aux attentes. Pour cela, je prévois :</p>
+        <ul>
+            <li><span class="checkmark">✓</span> Maquettes validées avant de coder</li>
+            <li><span class="checkmark">✓</span> Tests utilisateurs pendant le développement</li>
+            <li><span class="checkmark">✓</span> Démo régulière au formateur (toutes les 2 semaines)</li>
+            <li><span class="checkmark">✓</span> Feedback du jury lors de la soutenance</li>
+        </ul>
+
+        <h2 class="section-subtitle">Prendre des décisions clés</h2>
+        <p>Certaines parties prenantes ont le pouvoir de prendre des décisions importantes :</p>
+        <ul>
+            <li><strong>Le client (bibliothèque) :</strong> Valide les fonctionnalités prioritaires</li>
+            <li><strong>Le jury CDA :</strong> Détermine si je valide ou non</li>
+            <li><strong>Moi-même :</strong> Choix techniques (technologies, architecture)</li>
+        </ul>
+
+        <h2 class="section-subtitle">Importance de l'identification des parties prenantes</h2>
+
+        <h3 class="subsection-title">Alignement des objectifs</h3>
+        <p>Identifier toutes les parties prenantes me permet de m'assurer que les objectifs sont alignés :</p>
+        <ul>
+            <li>Le client veut <strong>réduire les coûts</strong></li>
+            <li>Les bibliothécaires veulent <strong>gagner du temps</strong></li>
+            <li>Les lecteurs veulent <strong>faciliter l'accès aux livres</strong></li>
+            <li>Le jury veut <strong>valider mes compétences</strong></li>
+        </ul>
+        <p>Mon application doit répondre à tous ces besoins simultanément.</p>
+
+        <h3 class="subsection-title">Gestion des risques</h3>
+        <p>Comprendre qui peut influencer le projet m'aide à anticiper les problèmes :</p>
+        <ul>
+            <li>Si je ne consulte pas les bibliothécaires, je risque de créer une interface inadaptée</li>
+            <li>Si j'ignore les attentes du jury, je risque de ne pas valider mon titre</li>
+            <li>Si je néglige les lecteurs, l'application ne sera pas utilisée</li>
+        </ul>
+
+        <h3 class="subsection-title">Communication efficace</h3>
+        <p>Une identification claire facilite la communication :</p>
+        <ul>
+            <li>Je sais à qui m'adresser pour chaque question</li>
+            <li>Je peux adapter mon discours selon l'interlocuteur</li>
+            <li>Je réduis les malentendus</li>
+        </ul>
+
+        <div class="footer-page">Page 7</div>
+    </div>
+
+    <!-- PAGE 8 : SYNTHÈSE -->
+    <div class="page">
+        <h1 class="section-title">📝 Synthèse</h1>
+
+        <div class="highlight-box">
+            <h3 style="color: #047857; margin-bottom: 15px;">Ce que j'ai appris de cette analyse</h3>
+            <p>Grâce à cette analyse approfondie des parties prenantes, j'ai une vision claire de :</p>
+            <ul>
+                <li><span class="checkmark">✓</span> <strong>Qui</strong> est concerné par le projet</li>
+                <li><span class="checkmark">✓</span> <strong>Pourquoi</strong> chacun s'y intéresse</li>
+                <li><span class="checkmark">✓</span> <strong>Quoi</strong> chacun attend de l'application</li>
+                <li><span class="checkmark">✓</span> <strong>Comment</strong> je vais répondre à ces attentes</li>
+            </ul>
+        </div>
+
+        <h2 class="section-subtitle">Points clés à retenir</h2>
+
+        <ol>
+            <li><strong>Le besoin n'est pas la demande</strong>
+                <p>La bibliothèque demandait "un système de gestion des prêts". Le vrai besoin est "faciliter l'accès à la culture tout en optimisant le travail du personnel".</p>
+            </li>
+            <li><strong>Toujours creuser le POURQUOI</strong>
+                <p>Poser 5 fois "pourquoi ?" permet d'arriver au vrai besoin (méthode des 5 pourquoi).</p>
+            </li>
+            <li><strong>Identifier TOUTES les parties prenantes</strong>
+                <p>8 parties prenantes identifiées pour ce projet, chacune avec ses propres attentes.</p>
+            </li>
+            <li><strong>Prioriser selon l'impact et l'influence</strong>
+                <p>6 parties prenantes avec priorité HAUTE : elles ont un impact direct sur le succès du projet.</p>
+            </li>
+            <li><strong>Se mettre à la place de chacun</strong>
+                <p>Les interviews fictives m'ont permis de mieux comprendre les frustrations et attentes de chaque utilisateur.</p>
+            </li>
+        </ol>
+
+        <h2 class="section-subtitle">Prochaines étapes</h2>
+        <p>Cette compréhension du besoin client me permet maintenant de passer à l'étape suivante :</p>
+        <div class="highlight-box">
+            <p><span class="arrow">→</span> <strong>Analyse détaillée des besoins</strong> (document séparé)</p>
+            <p style="margin-top: 10px;">Dans ce document, je vais détailler :</p>
+            <ul>
+                <li>Le <strong>Pourquoi</strong> de chaque fonctionnalité</li>
+                <li>Le <strong>Quoi</strong> à développer concrètement</li>
+                <li>Le <strong>Comment</strong> réaliser techniquement</li>
+                <li>La <strong>priorisation</strong> des fonctionnalités (méthode MoSCoW)</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 30px; border-top: 2px solid #d1fae5;">
+            <p style="text-align: center; color: #047857; font-weight: 600; font-size: 1.1em;">Document créé dans le cadre du projet CDA - RNCP 37873</p>
+            <p style="text-align: center; color: #6b7280; margin-top: 10px;">Candidat : Naim H. | Formation : Concepteur Développeur d'Applications | Date : Janvier 2026</p>
+        </div>
+
+        <div class="footer-page">Page 8</div>
+    </div>
+
+</body>
+</html>

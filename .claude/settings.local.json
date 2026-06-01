@@ -32,7 +32,18 @@
       "WebSearch",
       "WebFetch(domain:www.francecompetences.fr)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(psql:*)",
+      "Bash(php artisan:*)",
+      "Bash(composer require:*)",
+      "WebFetch(domain:docs.google.com)",
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
+      "Bash(powershell:*)"
     ],
     "deny": [],
     "ask": []

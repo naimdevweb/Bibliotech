@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse des Besoins - Projet CDA</title>
+    <style>
+        @page {
+            margin: 20mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            padding: 40mm 25mm;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+
+        /* PAGE DE GARDE */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            padding: 60mm 25mm;
+        }
+
+        .cover-logo {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            padding: 30px 60px;
+            font-size: 2em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            border: 4px solid #333;
+            margin-bottom: 40px;
+        }
+
+        .cover-title {
+            font-size: 2.5em;
+            color: #1e40af;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .cover-subtitle {
+            font-size: 1.6em;
+            color: #374151;
+            font-weight: 400;
+            margin-bottom: 60px;
+        }
+
+        .cover-box {
+            background: #eff6ff;
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid #3b82f6;
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .cover-box p {
+            color: #374151;
+            font-size: 1em;
+            line-height: 1.8;
+        }
+
+        /* SECTIONS */
+        .section-title {
+            font-size: 2.2em;
+            color: #1e40af;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        .section-subtitle {
+            font-size: 1.6em;
+            color: #374151;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #dbeafe;
+        }
+
+        .subsection-title {
+            font-size: 1.3em;
+            color: #2563eb;
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .example-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .example-box h4 {
+            color: #d97706;
+            margin-bottom: 10px;
+        }
+
+        .moscow-box {
+            background: white;
+            border: 2px solid #e5e7eb;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .moscow-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .moscow-must { border-left: 4px solid #ef4444; }
+        .moscow-should { border-left: 4px solid #f59e0b; }
+        .moscow-could { border-left: 4px solid #3b82f6; }
+        .moscow-wont { border-left: 4px solid #6b7280; }
+
+        .badge-must { background: #ef4444; color: white; padding: 4px 12px; border-radius: 12px; margin-right: 10px; font-size: 0.85em; }
+        .badge-should { background: #f59e0b; color: white; padding: 4px 12px; border-radius: 12px; margin-right: 10px; font-size: 0.85em; }
+        .badge-could { background: #3b82f6; color: white; padding: 4px 12px; border-radius: 12px; margin-right: 10px; font-size: 0.85em; }
+        .badge-wont { background: #6b7280; color: white; padding: 4px 12px; border-radius: 12px; margin-right: 10px; font-size: 0.85em; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        table th {
+            background: #1e40af;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #dbeafe;
+        }
+
+        table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .checkmark {
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .arrow {
+            color: #3b82f6;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .footer-page {
+            position: absolute;
+            bottom: 20mm;
+            left: 25mm;
+            right: 25mm;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9em;
+            padding-top: 15px;
+            border-top: 1px solid #dbeafe;
+        }
+
+        strong {
+            color: #1e40af;
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #ef4444;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE DE GARDE -->
+    <div class="page cover-page">
+        <div>
+            <div class="cover-logo">GESTION DE PROJET AGILE</div>
+            <h1 class="cover-title">Analyse des Besoins</h1>
+            <h2 class="cover-subtitle">Projet : Système de Gestion de Bibliothèque Municipale</h2>
+        </div>
+
+        <div class="cover-box">
+            <p><strong>Candidat :</strong> Naim H.</p>
+            <p><strong>Formation :</strong> Concepteur Développeur d'Applications</p>
+            <p><strong>Référentiel :</strong> RNCP 37873</p>
+            <p><strong>Date :</strong> Janvier 2026</p>
+        </div>
+
+        <div style="margin-top: 60px; color: #6b7280; font-size: 0.9em;">
+            <p><strong>Document créé dans le cadre du titre professionnel CDA</strong></p>
+        </div>
+    </div>
+
+    <!-- PAGE 1 : INTRODUCTION -->
+    <div class="page">
+        <h1 class="section-title">📋 Introduction</h1>
+
+        <p>Maintenant que j'ai bien identifié toutes les parties prenantes et compris leurs motivations (voir document "Compréhension du Besoin Client"), je dois analyser en détail leurs besoins. Cette analyse me permettra de définir précisément ce que l'application doit faire et comment elle doit fonctionner.</p>
+
+        <div class="highlight-box">
+            <p><strong>Objectif de ce document :</strong></p>
+            <ul>
+                <li>Appliquer l'approche centrée sur les objectifs (Pourquoi / Quoi / Comment)</li>
+                <li>Recenser toutes les fonctionnalités nécessaires</li>
+                <li>Prioriser les besoins selon la méthode MoSCoW</li>
+                <li>Définir les solutions techniques adaptées</li>
+            </ul>
+        </div>
+
+        <h2 class="section-subtitle">🎯 Approche Centrée sur les Objectifs</h2>
+
+        <p>Pour mener cette analyse, j'applique la méthode enseignée en formation : <strong>Pourquoi ? Quoi ? Comment ?</strong></p>
+
+        <div class="highlight-box">
+            <h3 style="color: #1e40af; margin-bottom: 15px;">Les 3 questions fondamentales</h3>
+
+            <p><strong>1️⃣ POURQUOI ?</strong> - Comprendre la raison derrière chaque demande</p>
+            <p style="margin-left: 20px;">Permet d'identifier les vrais besoins et les motivations</p>
+
+            <p style="margin-top: 15px;"><strong>2️⃣ QUOI ?</strong> - Déterminer ce qui doit être accompli</p>
+            <p style="margin-left: 20px;">Aide à définir les exigences claires et mesurables</p>
+
+            <p style="margin-top: 15px;"><strong>3️⃣ COMMENT ?</strong> - Explorer les moyens pour réaliser l'objectif</p>
+            <p style="margin-left: 20px;">Encourage la créativité et l'innovation dans les solutions</p>
+        </div>
+
+        <h2 class="section-subtitle">📚 Techniques de Recueil des Besoins Utilisées</h2>
+
+        <p>Pour collecter et analyser les besoins, j'ai utilisé plusieurs techniques enseignées en formation :</p>
+
+        <ul>
+            <li><strong>Interviews et Discussions</strong> - Conversations avec les parties prenantes</li>
+            <li><strong>Ateliers de Travail</strong> - Sessions collaboratives pour identifier et prioriser</li>
+            <li><strong>Observation et Études de Cas</strong> - Analyse des comportements réels</li>
+            <li><strong>Questionnaires et Sondages</strong> - Données quantitatives sur un large échantillon</li>
+        </ul>
+
+        <div class="footer-page">Page 1</div>
+    </div>
+
+    <!-- PAGE 2 : POURQUOI - EXEMPLES -->
+    <div class="page">
+        <h1 class="section-title">1️⃣ POURQUOI ? - Comprendre les motivations</h1>
+
+        <p>Avant de définir les fonctionnalités, je dois comprendre <strong>pourquoi</strong> chaque fonction est nécessaire.</p>
+
+        <h2 class="section-subtitle">Exemple 1 : Recherche de livres</h2>
+
+        <div class="example-box">
+            <p><strong>Demande initiale :</strong> "On veut une barre de recherche"</p>
+
+            <p style="margin-top: 15px;"><strong>Pourquoi ?</strong></p>
+            <ul>
+                <li>Les lecteurs doivent pouvoir trouver rapidement un livre parmi 100 000 références</li>
+                <li>Sans moteur de recherche efficace, c'est impossible de parcourir tout le catalogue</li>
+                <li>Les lecteurs n'ont pas le temps de passer des heures à chercher</li>
+            </ul>
+
+            <p style="margin-top: 15px;"><strong>Vraie motivation :</strong></p>
+            <p>Permettre aux lecteurs de trouver ce qu'ils cherchent en quelques secondes pour leur donner envie de lire plus.</p>
+
+            <p style="margin-top: 15px;"><strong>Impact sur le développement :</strong></p>
+            <ul>
+                <li>Nécessite une recherche full-text performante</li>
+                <li>Filtres multiples (auteur, genre, année, disponibilité)</li>
+                <li>Suggestions automatiques pendant la frappe</li>
+                <li>Optimisation Big Data avec index PostgreSQL et cache Redis</li>
+            </ul>
+        </div>
+
+        <h2 class="section-subtitle">Exemple 2 : Système de réservations</h2>
+
+        <div class="example-box">
+            <p><strong>Demande initiale :</strong> "Les lecteurs doivent pouvoir réserver un livre"</p>
+
+            <p style="margin-top: 15px;"><strong>Pourquoi ?</strong></p>
+            <ul>
+                <li>Quand un livre est emprunté, le lecteur se déplace pour rien</li>
+                <li>Les lecteurs abandonnent leur recherche si le livre n'est pas dispo</li>
+                <li>La bibliothèque perd des opportunités de prêt</li>
+            </ul>
+
+            <p style="margin-top: 15px;"><strong>Vraie motivation :</strong></p>
+            <p>Éviter la frustration et garantir que chaque lecteur puisse lire le livre qu'il souhaite, même s'il doit attendre.</p>
+
+            <p style="margin-top: 15px;"><strong>Impact sur le développement :</strong></p>
+            <ul>
+                <li>File d'attente automatique</li>
+                <li>Notification quand le livre devient disponible</li>
+                <li>Délai de 7 jours pour venir récupérer le livre réservé</li>
+                <li>Annulation automatique si non récupéré</li>
+            </ul>
+        </div>
+
+        <div class="footer-page">Page 2</div>
+    </div>
+
+    <!-- PAGE 3 : QUOI - FONCTIONNALITÉS -->
+    <div class="page">
+        <h1 class="section-title">2️⃣ QUOI ? - Définir les fonctionnalités</h1>
+
+        <p>Maintenant que je comprends le <strong>pourquoi</strong>, je peux définir <strong>quoi</strong> faire concrètement.</p>
+
+        <h2 class="section-subtitle">Fonctionnalités pour les LECTEURS</h2>
+
+        <ul>
+            <li><span class="checkmark">✓</span> <strong>Consultation du catalogue</strong>
+                <ul>
+                    <li>Accès au catalogue complet des 100 000 livres</li>
+                    <li>Recherche avancée (titre, auteur, ISBN, genre)</li>
+                    <li>Filtres multiples (disponibilité, année, note moyenne)</li>
+                    <li>Fiche détaillée de chaque livre</li>
+                </ul>
+            </li>
+            <li><span class="checkmark">✓</span> <strong>Gestion des emprunts</strong>
+                <ul>
+                    <li>Voir mes emprunts en cours avec date de retour</li>
+                    <li>Historique de mes emprunts passés</li>
+                    <li>Renouveler un emprunt (si pas de réservation en attente)</li>
+                    <li>Alerte si retard</li>
+                </ul>
+            </li>
+            <li><span class="checkmark">✓</span> <strong>Réservations</strong>
+                <ul>
+                    <li>Réserver un livre non disponible</li>
+                    <li>Voir ma position dans la file d'attente</li>
+                    <li>Recevoir une notification quand le livre est dispo</li>
+                    <li>Annuler une réservation</li>
+                </ul>
+            </li>
+            <li><span class="checkmark">✓</span> <strong>Fonctionnalités sociales</strong>
+                <ul>
+                    <li>Laisser un avis et une note sur un livre lu</li>
+                    <li>Consulter les avis des autres lecteurs</li>
+                    <li>Ajouter des livres à mes favoris</li>
+                    <li>Recevoir des recommandations personnalisées</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2 class="section-subtitle">Fonctionnalités pour les BIBLIOTHÉCAIRES</h2>
+
+        <ul>
+            <li><span class="checkmark">✓</span> <strong>Gestion des prêts</strong>
+                <ul>
+                    <li>Enregistrer un nouveau prêt</li>
+                    <li>Enregistrer un retour</li>
+                    <li>Voir tous les prêts en cours</li>
+                    <li>Gérer les retards (relances, pénalités)</li>
+                </ul>
+            </li>
+            <li><span class="checkmark">✓</span> <strong>Gestion du catalogue</strong>
+                <ul>
+                    <li>Ajouter un nouveau livre</li>
+                    <li>Modifier les informations d'un livre</li>
+                    <li>Supprimer un livre</li>
+                    <li>Voir les statistiques par livre</li>
+                </ul>
+            </li>
+            <li><span class="checkmark">✓</span> <strong>Gestion des lecteurs</strong>
+                <ul>
+                    <li>Créer un compte lecteur</li>
+                    <li>Consulter le profil d'un lecteur</li>
+                    <li>Voir l'historique des emprunts</li>
+                    <li>Bloquer un compte en cas de problème</li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="footer-page">Page 3</div>
+    </div>
+
+    <!-- PAGE 4 : COMMENT - SOLUTIONS TECHNIQUES -->
+    <div class="page">
+        <h1 class="section-title">3️⃣ COMMENT ? - Solutions techniques</h1>
+
+        <p>Maintenant que je sais <strong>quoi</strong> faire, je dois décider <strong>comment</strong> le faire techniquement.</p>
+
+        <h2 class="section-subtitle">Architecture technique choisie</h2>
+
+        <div class="highlight-box">
+            <p><strong>SPA (Single Page Application) + API REST MVC</strong></p>
+            <p style="margin-top: 10px;"><strong>Pourquoi ce choix ?</strong></p>
+            <ul>
+                <li>Expérience utilisateur fluide (pas de rechargement de page)</li>
+                <li>Séparation frontend/backend (plus maintenable)</li>
+                <li>Scalabilité (API réutilisable pour une future app mobile)</li>
+                <li>Correspond au référentiel CDA (application multicouche)</li>
+            </ul>
+
+            <p style="margin-top: 15px;"><strong>Stack technique :</strong></p>
+            <ul>
+                <li><strong>Frontend :</strong> React + Vite (interactivité, composants réutilisables)</li>
+                <li><strong>Backend :</strong> Laravel (PHP framework, ORM puissant, sécurité intégrée)</li>
+                <li><strong>Base de données :</strong> PostgreSQL (meilleure gestion des gros volumes)</li>
+                <li><strong>Cache :</strong> Redis (optimiser les requêtes fréquentes)</li>
+                <li><strong>Authentification :</strong> Laravel Sanctum (JWT tokens)</li>
+            </ul>
+        </div>
+
+        <h2 class="section-subtitle">Solutions pour les défis identifiés</h2>
+
+        <h3 class="subsection-title">Challenge 1 : Gérer 100 000 livres (Big Data)</h3>
+        <p><strong>Comment ?</strong></p>
+        <ul>
+            <li>Index PostgreSQL sur les champs de recherche (title, author, ISBN)</li>
+            <li>Recherche full-text avec <code>to_tsvector</code> et <code>to_tsquery</code></li>
+            <li>Pagination obligatoire (20 livres par page max)</li>
+            <li>Cache Redis pour les recherches fréquentes (TTL 1h)</li>
+            <li>Lazy loading côté frontend (chargement progressif)</li>
+        </ul>
+
+        <h3 class="subsection-title">Challenge 2 : Recherche rapide et pertinente</h3>
+        <p><strong>Comment ?</strong></p>
+        <ul>
+            <li>Moteur de recherche full-text PostgreSQL</li>
+            <li>Algorithme de pertinence (score de similarité)</li>
+            <li>Suggestions pendant la frappe (debounce 300ms)</li>
+            <li>Filtres combinables (genre + disponibilité + année)</li>
+        </ul>
+
+        <h3 class="subsection-title">Challenge 3 : Notifications automatiques</h3>
+        <p><strong>Comment ?</strong></p>
+        <ul>
+            <li>Laravel Scheduler (cron job)</li>
+            <li>Vérification quotidienne des dates de retour</li>
+            <li>Queue Jobs pour l'envoi d'emails asynchrones</li>
+            <li>Templates d'emails avec Laravel Blade</li>
+        </ul>
+
+        <div class="footer-page">Page 4</div>
+    </div>
+
+    <!-- PAGE 5 : TECHNIQUES DE RECUEIL -->
+    <div class="page">
+        <h1 class="section-title">🔍 Techniques de Recueil des Besoins</h1>
+
+        <h2 class="section-subtitle">1. Interviews et Discussions</h2>
+        <p><strong>Avec qui ?</strong> Mon formateur, des utilisateurs fictifs (mise en situation)</p>
+        <p><strong>Avantages :</strong> Informations détaillées et spécifiques, comprendre les cas d'usage réels</p>
+
+        <div class="example-box">
+            <h4>Questions posées au directeur de bibliothèque :</h4>
+            <ul>
+                <li>Quel est le problème principal que vous rencontrez aujourd'hui ?</li>
+                <li>Quels sont les processus les plus chronophages ?</li>
+                <li>Quels bénéfices espérez-vous de cette application ?</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>Réponse :</strong> <em>"Nos lecteurs se déplacent pour rien car le livre est déjà emprunté. On perd du temps à gérer les retards manuellement. Et on ne sait pas quels livres acheter car on n'a pas de statistiques."</em></p>
+        </div>
+
+        <h2 class="section-subtitle">2. Ateliers de Travail (Brainstorming)</h2>
+        <p><strong>Méthode :</strong> Sessions collaboratives pour identifier et prioriser les fonctionnalités</p>
+        <p><strong>Avantages :</strong> Consensus entre les parties prenantes, créativité collective</p>
+
+        <div class="highlight-box">
+            <p><strong>Exemple d'atelier : "Quelles fonctionnalités pour améliorer l'expérience lecteur ?"</strong></p>
+            <ul>
+                <li><span class="checkmark">✓</span> Réservations en ligne</li>
+                <li><span class="checkmark">✓</span> Notifications automatiques</li>
+                <li><span class="checkmark">✓</span> Système d'avis</li>
+                <li><span class="checkmark">✓</span> Recommandations</li>
+                <li>❌ Chat en direct (complexité vs bénéfice)</li>
+                <li>❌ Réseau social complet (hors scope)</li>
+            </ul>
+        </div>
+
+        <h2 class="section-subtitle">3. Observation et Études de Cas</h2>
+        <p><strong>Méthode :</strong> Analyser les comportements et processus réels</p>
+        <p><strong>Exemples :</strong></p>
+        <ul>
+            <li>Observation d'une bibliothèque physique (flux lecteurs, temps d'attente)</li>
+            <li>Étude de plateformes similaires (Babelio, Goodreads, BnF)</li>
+            <li>Analyse de solutions concurrentes (Koha, PMB)</li>
+        </ul>
+
+        <h2 class="section-subtitle">4. Questionnaires et Sondages</h2>
+        <p><strong>Exemple de sondage fictif :</strong> "Quelles fonctionnalités vous semblent les plus importantes ?"</p>
+        <ul>
+            <li><span class="checkmark">✓</span> 95% : Recherche rapide</li>
+            <li><span class="checkmark">✓</span> 87% : Notifications de retour</li>
+            <li><span class="checkmark">✓</span> 76% : Réservations en ligne</li>
+            <li><span class="checkmark">✓</span> 62% : Recommandations personnalisées</li>
+        </ul>
+
+        <div class="footer-page">Page 5</div>
+    </div>
+
+    <!-- PAGE 6 : PRIORISATION MOSCOW 1/2 -->
+    <div class="page">
+        <h1 class="section-title">📊 Priorisation des Besoins (MoSCoW)</h1>
+
+        <p>Pour organiser le développement, j'ai classé les besoins par priorité selon la méthode MoSCoW :</p>
+
+        <div class="moscow-box moscow-must">
+            <div class="moscow-title">
+                <span class="badge-must">MUST HAVE</span>
+                <span>Indispensable - MVP (Minimum Viable Product)</span>
+            </div>
+            <p style="color: #6b7280; margin-bottom: 15px;">Sans ces fonctionnalités, l'application ne peut pas fonctionner</p>
+            <ul>
+                <li>Authentification (lecteur, bibliothécaire, admin)</li>
+                <li>Catalogue de livres consultable</li>
+                <li>Recherche de livres</li>
+                <li>Gestion des emprunts (création, retour)</li>
+                <li>Gestion des réservations</li>
+                <li>Notifications de retour</li>
+                <li>Interface responsive</li>
+            </ul>
+        </div>
+
+        <div class="moscow-box moscow-should">
+            <div class="moscow-title">
+                <span class="badge-should">SHOULD HAVE</span>
+                <span>Important - Phase 2</span>
+            </div>
+            <p style="color: #6b7280; margin-bottom: 15px;">Fonctionnalités importantes qui améliorent significativement l'expérience</p>
+            <ul>
+                <li>Système d'avis et notes</li>
+                <li>Dashboard statistiques admin</li>
+                <li>Recommandations personnalisées</li>
+                <li>Export des données perso (RGPD)</li>
+                <li>Favoris</li>
+                <li>Renouvellement d'emprunt</li>
+            </ul>
+        </div>
+
+        <div class="moscow-box moscow-could">
+            <div class="moscow-title">
+                <span class="badge-could">COULD HAVE</span>
+                <span>Optionnel - Bonus</span>
+            </div>
+            <p style="color: #6b7280; margin-bottom: 15px;">Nice to have, mais pas critique</p>
+            <ul>
+                <li>Liste de souhaits communautaire</li>
+                <li>Statistiques de lecture personnelles</li>
+                <li>Badges de lecteur</li>
+                <li>Suggestions d'achat (lecteurs proposent des livres)</li>
+            </ul>
+        </div>
+
+        <div class="moscow-box moscow-wont">
+            <div class="moscow-title">
+                <span class="badge-wont">WON'T HAVE</span>
+                <span>Hors scope pour cette version</span>
+            </div>
+            <p style="color: #6b7280; margin-bottom: 15px;">Fonctionnalités exclues volontairement</p>
+            <ul>
+                <li>Application mobile native (la PWA suffira)</li>
+                <li>Réseau social complet</li>
+                <li>Chat en direct</li>
+                <li>Gestion des amendes financières</li>
+                <li>E-books / livres numériques</li>
+            </ul>
+        </div>
+
+        <div class="footer-page">Page 6</div>
+    </div>
+
+    <!-- PAGE 7 : SYNTHÈSE -->
+    <div class="page">
+        <h1 class="section-title">📝 Synthèse</h1>
+
+        <div class="highlight-box">
+            <h3 style="color: #1e40af; margin-bottom: 15px;">Ce que je sais maintenant</h3>
+            <p>Grâce à cette analyse approfondie, j'ai maintenant une vision claire de :</p>
+            <ul>
+                <li><span class="checkmark">✓</span> <strong>Pourquoi</strong> chaque fonctionnalité est nécessaire (motivations)</li>
+                <li><span class="checkmark">✓</span> <strong>Quoi</strong> développer concrètement (liste des fonctionnalités)</li>
+                <li><span class="checkmark">✓</span> <strong>Comment</strong> le réaliser techniquement (stack, architecture, solutions)</li>
+                <li><span class="checkmark">✓</span> <strong>Dans quel ordre</strong> développer (priorisation MoSCoW)</li>
+                <li><span class="checkmark">✓</span> <strong>Pour qui</strong> je développe (parties prenantes et leurs besoins)</li>
+            </ul>
+        </div>
+
+        <h2 class="section-subtitle">Points clés à retenir</h2>
+
+        <ol>
+            <li><strong>La méthode Pourquoi/Quoi/Comment est essentielle</strong>
+                <p>Elle permet de ne pas se précipiter sur une solution technique avant de comprendre le vrai besoin.</p>
+            </li>
+            <li><strong>Les techniques de recueil sont complémentaires</strong>
+                <p>Interviews + Ateliers + Observation + Sondages = Vision complète des besoins.</p>
+            </li>
+            <li><strong>La priorisation MoSCoW structure le développement</strong>
+                <p>Elle permet de livrer un MVP fonctionnel rapidement, puis d'enrichir progressivement.</p>
+            </li>
+            <li><strong>Le Big Data nécessite des solutions spécifiques</strong>
+                <p>Index, cache, pagination : indispensables pour gérer 100 000 livres.</p>
+            </li>
+        </ol>
+
+        <h2 class="section-subtitle">Prochaines étapes</h2>
+        <div class="highlight-box">
+            <p><span class="arrow">→</span> <strong>Formaliser tout ça dans le Cahier des Charges</strong></p>
+            <p style="margin-top: 10px;">Le cahier des charges reprendra toute cette analyse et la structurera de manière professionnelle pour :</p>
+            <ul>
+                <li>Guider le développement</li>
+                <li>Servir de référence pendant le projet</li>
+                <li>Être présenté au formateur et au jury</li>
+            </ul>
+        </div>
+
+        <h2 class="section-subtitle">Tableau récapitulatif des décisions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aspect</th>
+                    <th>Décision prise</th>
+                    <th>Justification</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Architecture</strong></td>
+                    <td>SPA + API REST MVC</td>
+                    <td>Scalabilité, maintenabilité, conformité CDA</td>
+                </tr>
+                <tr>
+                    <td><strong>Frontend</strong></td>
+                    <td>React + Vite + Tailwind</td>
+                    <td>Composants réutilisables, performance, responsive</td>
+                </tr>
+                <tr>
+                    <td><strong>Backend</strong></td>
+                    <td>Laravel + Sanctum</td>
+                    <td>ORM puissant, sécurité intégrée, formation</td>
+                </tr>
+                <tr>
+                    <td><strong>Base de données</strong></td>
+                    <td>PostgreSQL</td>
+                    <td>Meilleure gestion des gros volumes</td>
+                </tr>
+                <tr>
+                    <td><strong>Cache</strong></td>
+                    <td>Redis</td>
+                    <td>Optimisation des performances</td>
+                </tr>
+                <tr>
+                    <td><strong>Hébergement</strong></td>
+                    <td>Vercel + Railway</td>
+                    <td>Plans gratuits, adaptés au projet de formation</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 60px; padding-top: 30px; border-top: 2px solid #dbeafe;">
+            <p style="text-align: center; color: #1e40af; font-weight: 600; font-size: 1.1em;">Document créé dans le cadre du projet CDA - RNCP 37873</p>
+            <p style="text-align: center; color: #6b7280; margin-top: 10px;">Candidat : Naim H. | Formation : Concepteur Développeur d'Applications | Date : Janvier 2026</p>
+        </div>
+
+        <div class="footer-page">Page 7</div>
+    </div>
+
+</body>
+</html>
